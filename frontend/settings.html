@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings - HealthMate</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f9fafb; padding: 2rem; }
+        form { background: white; padding: 2rem; max-width: 500px; margin: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        input, select, button { width: 100%; padding: 0.8rem; margin-top: 1rem; border-radius: 8px; border: 1px solid #ccc; }
+        button { background: #0f62fe; color: white; border: none; font-weight: 600; }
+        h2 { text-align: center; color: #0f62fe; }
+        .file-upload { background: #fff; padding: 1rem; border-radius: 8px; margin-top: 1rem; text-align: center; }
+    </style>
+</head>
+<body>
+
+<h2>Profile Settings</h2>
+<form id="settings-form">
+    <!-- Profile Picture Upload -->
+    <div class="file-upload">
+        <label for="profilePic">Upload Profile Picture</label>
+        <input type="file" id="profilePic" accept="image/*" />
+    </div>
+
+    <!-- Full Name -->
+    <input type="text" id="fullName" placeholder="Full Name" value="" required />
+    
+    <!-- Age -->
+    <input type="number" id="age" placeholder="Age" value="" required />
+    
+    <!-- Gender -->
+    <select id="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+    
+    <!-- Medical Conditions -->
+    <input type="text" id="conditions" placeholder="Medical Conditions (optional)" />
+
+    <!-- Emergency Contact -->
+    <input type="text" id="emergencyContact" placeholder="Emergency Contact" />
+
+    <!-- Password Update -->
+    <input type="password" id="password" placeholder="Update Password" />
+
+    <!-- Notification Preferences -->
+    <label><input type="checkbox" id="emailNotifications" /> Email Notifications</label>
+    <label><input type="checkbox" id="smsNotifications" /> SMS Notifications</label>
+
+    <!-- Theme Preferences -->
+    <select id="themePreferences">
+        <option value="light">Light Mode</option>
+        <option value="dark">Dark Mode</option>
+    </select>
+
+    <!-- Save Button -->
+    <button type="submit">Save Changes</button>
+</form>
+
+<script>
+document.getElementById('settings-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const fullName = document.getElementById('fullName').value;
+    const age = document.getElementById('age').value;
+    const gender = document.getElementById('gender').value;
+    const conditions = document.getElementById('conditions').value;
+    const emergencyContact = document.getElementById('emergencyContact').value;
+    const password = document.getElementById('password').value;
+    const emailNotifications = document.getElementById('emailNotifications').checked;
+    const smsNotifications = document.getElementById('smsNotifications').checked;
+    const themePreferences = document.getElementById('themePreferences').value;
+    
+    // Save to localStorage
+    localStorage.setItem('fullName', fullName);
+    localStorage.setItem('age', age);
+    localStorage.setItem('gender', gender);
+    localStorage.setItem('conditions', conditions);
+    localStorage.setItem('emergencyContact', emergencyContact);
+    localStorage.setItem('password', password);
+    localStorage.setItem('emailNotifications', emailNotifications);
+    localStorage.setItem('smsNotifications', smsNotifications);
+    localStorage.setItem('themePreferences', themePreferences);
+
+    // Redirect to dashboard
+    window.location.href = 'dashboard.html';
+});
+</script>
+
+</body>
+</html>

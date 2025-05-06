@@ -1,0 +1,810 @@
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   HealthMate | User Dashboard with Doctors Carousel
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Custom scrollbar for carousel */
+    #carousel-inner::-webkit-scrollbar {
+      display: none;
+    }
+    #carousel-inner {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Appointment indicator dots */
+    .appointment-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .upcoming .appointment-indicator {
+      background-color: #1e293b; /* dark slate */
+    }
+    .appointment-today .appointment-indicator {
+      background-color: #dc2626; /* red-600 */
+    }
+    /* Calendar day focus */
+    .calendar-day:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+      z-index: 10;
+      position: relative;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-30">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <a class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" href="dashboard.html">
+     <img alt="logo" class="w-10 h-10 object-contain" height="40" src="assets/logo.png" width="40"/>
+     <span class="text-2xl font-semibold text-blue-600 select-none">
+      HealthMate
+     </span>
+    </a>
+    <nav aria-label="Primary navigation" class="hidden md:flex space-x-6 font-medium text-gray-700">
+     <a aria-current="page" class="text-blue-600 border-b-2 border-blue-600 pb-1" href="dashboard.html">
+      Dashboard
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="about.html">
+      About Us
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="pharmacy.html">
+      Pharmacy
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="appointments.html">
+      Appointments
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="emergency.html">
+      Emergency
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="ai-chatbot.html">
+      AI Chat
+     </a>
+    </nav>
+    <div class="hidden md:block">
+     <a class="text-gray-700 hover:text-blue-600 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-3 py-1" href="dashboard.html">
+      Logout
+     </a>
+    </div>
+    <!-- Mobile menu button -->
+    <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle menu" class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" id="mobileMenuBtn">
+     <i class="fas fa-bars fa-lg">
+     </i>
+    </button>
+   </div>
+   <!-- Mobile menu -->
+   <nav class="md:hidden hidden bg-white border-t border-gray-200" id="mobileMenu">
+    <a aria-current="page" class="block px-4 py-3 text-blue-600 font-semibold border-l-4 border-blue-600" href="dashboard.html">
+     Dashboard
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="profile.html">
+     Profile
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="appointments.html">
+     Appointments
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="emergency.html">
+     Emergency
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="ai-chatbot.html">
+     AI Chat
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:text-blue-600 font-semibold border-t border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" href="dashboard.html">
+     Logout
+    </a>
+   </nav>
+  </header>
+  <!-- Doctors Carousel -->
+  <section aria-label="Doctors carousel" class="carousel mt-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   <div class="relative overflow-hidden rounded-lg shadow-lg">
+    <div class="flex transition-transform duration-700 ease-in-out" id="carousel-inner" style="transform: translateX(0);">
+     <div aria-hidden="false" class="flex-shrink-0 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 py-6">
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Rajesh Kumar, a 45-year-old male cardiologist with a friendly smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/281cd5e6-2256-4c77-601d-e7f92686b437.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Rajesh Kumar
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 45
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Cardiologist
+       </div>
+       <button aria-label="Book appointment with Dr. Rajesh Kumar" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Rajesh Kumar" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Anjali Mehta, a 38-year-old female pediatrician with a warm smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/2a987d77-90a0-4928-5f0d-310a5a595f98.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Anjali Mehta
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 38
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Pediatrician
+       </div>
+       <button aria-label="Book appointment with Dr. Anjali Mehta" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Anjali Mehta" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Suresh Patel, a 50-year-old male neurologist with a confident smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/79bb0336-5c72-416e-e7b9-6c23c3402655.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Suresh Patel
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 50
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Neurologist
+       </div>
+       <button aria-label="Book appointment with Dr. Suresh Patel" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Suresh Patel" type="button">
+        Book Appointment
+       </button>
+      </article>
+     </div>
+     <div aria-hidden="true" class="flex-shrink-0 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 py-6">
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Kavita Sharma, a 42-year-old female general physician with a kind smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/cf8356bd-c4e4-4834-03b0-f24afda06e6f.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Kavita Sharma
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 42
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        General Physician
+       </div>
+       <button aria-label="Book appointment with Dr. Kavita Sharma" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Kavita Sharma" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Amit Joshi, a 44-year-old male orthopedic surgeon with a professional smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/7a3ce7e1-3d71-4be0-f23b-5c2cd7199d15.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Amit Joshi
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 44
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Orthopedic Surgeon
+       </div>
+       <button aria-label="Book appointment with Dr. Amit Joshi" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Amit Joshi" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Meera Singh, a 39-year-old female dermatologist with a gentle smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/d584841a-0752-4262-4e87-ee6541bdc7d7.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Meera Singh
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 39
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Dermatologist
+       </div>
+       <button aria-label="Book appointment with Dr. Meera Singh" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Meera Singh" type="button">
+        Book Appointment
+       </button>
+      </article>
+     </div>
+     <div aria-hidden="true" class="flex-shrink-0 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 py-6">
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Vikram Desai, a 47-year-old male ENT specialist with a confident smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/06622d77-ef3c-449c-0f16-5fb2c794da25.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Vikram Desai
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 47
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        ENT Specialist
+       </div>
+       <button aria-label="Book appointment with Dr. Vikram Desai" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Vikram Desai" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Nisha Rao, a 36-year-old female gynecologist with a warm smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/a35d6b7a-198f-4a5e-2876-b64807fe63a5.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Nisha Rao
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 36
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Gynecologist
+       </div>
+       <button aria-label="Book appointment with Dr. Nisha Rao" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Nisha Rao" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Arjun Malhotra, a 52-year-old male endocrinologist with a friendly smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/85d0d443-5d06-40e1-210c-09725bb32d7f.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Arjun Malhotra
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 52
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Endocrinologist
+       </div>
+       <button aria-label="Book appointment with Dr. Arjun Malhotra" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Arjun Malhotra" type="button">
+        Book Appointment
+       </button>
+      </article>
+     </div>
+     <div aria-hidden="true" class="flex-shrink-0 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 py-6">
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Priya Nair, a 41-year-old female psychiatrist with a calm smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/a33168d6-8143-4c89-3d35-4c2eb21043d4.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Priya Nair
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 41
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Psychiatrist
+       </div>
+       <button aria-label="Book appointment with Dr. Priya Nair" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Priya Nair" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Rohit Verma, a 48-year-old male pulmonologist with a confident smile, wearing a white coat and stethoscope" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/11c06946-fc1f-4bee-cc65-6bbcfded54b1.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Rohit Verma
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 48
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Pulmonologist
+       </div>
+       <button aria-label="Book appointment with Dr. Rohit Verma" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Rohit Verma" type="button">
+        Book Appointment
+       </button>
+      </article>
+      <article class="doctor-card-carousel bg-white rounded-lg shadow-md p-4 flex flex-col items-center text-center focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+       <img alt="Portrait of Dr. Sneha Gupta, a 35-year-old female nutritionist with a friendly smile, wearing a white coat" class="doctor-photo-carousel rounded-full w-36 h-36 object-cover mb-4" height="150" src="https://storage.googleapis.com/a1aa/image/16da4e04-4d8a-47ff-6260-28defeba7fba.jpg" width="150"/>
+       <div class="doctor-name-carousel font-semibold text-lg text-blue-700 mb-1">
+        Dr. Sneha Gupta
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-1">
+        Age: 35
+       </div>
+       <div class="doctor-info-carousel text-gray-600 mb-4">
+        Nutritionist
+       </div>
+       <button aria-label="Book appointment with Dr. Sneha Gupta" class="book-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" data-doctor="Dr. Sneha Gupta" type="button">
+        Book Appointment
+       </button>
+      </article>
+     </div>
+    </div>
+    <div class="carousel-controls absolute top-1/2 transform -translate-y-1/2 w-full flex justify-between px-4">
+     <button aria-label="Previous doctors" class="bg-white bg-opacity-80 hover:bg-opacity-100 text-blue-600 rounded-full p-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500" id="prevBtn">
+      <i class="fas fa-chevron-left fa-lg">
+      </i>
+     </button>
+     <button aria-label="Next doctors" class="bg-white bg-opacity-80 hover:bg-opacity-100 text-blue-600 rounded-full p-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500" id="nextBtn">
+      <i class="fas fa-chevron-right fa-lg">
+      </i>
+     </button>
+    </div>
+   </div>
+  </section>
+  <div class="dashboard-container flex flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-12 w-full" role="main">
+   <!-- Sidebar -->
+   <aside aria-label="User navigation" class="sidebar hidden md:block w-64 bg-white rounded-lg shadow-md p-6 sticky top-20 self-start h-fit">
+    <h2 class="text-xl font-semibold mb-6 text-blue-700 select-none">
+     Welcome, User
+    </h2>
+    <nav class="flex flex-col space-y-3 font-medium text-gray-700">
+     <a aria-current="page" class="text-blue-600 border-l-4 border-blue-600 pl-3 py-1 rounded-r focus:outline-none focus:ring-2 focus:ring-blue-500" href="dashboard.html">
+      Dashboard
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1" href="profile.html">
+      Profile
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1" href="appointments.html">
+      Appointments
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1" href="emergency.html">
+      Emergency
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1" href="ai-chatbot.html">
+      AI Chat
+     </a>
+    </nav>
+   </aside>
+   <!-- Main Content -->
+   <main class="content flex-1 ml-0 md:ml-8" tabindex="0">
+    <h2 class="text-3xl font-semibold mb-6 text-blue-700 select-none">
+     Dashboard Overview
+    </h2>
+    <section aria-label="Health services summary" class="cards-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+     <article class="card bg-white rounded-lg shadow-md p-6 focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">
+       Fast Ambulance Dispatch
+      </h3>
+      <p class="text-gray-700">
+       Immediate ambulance dispatch with live GPS tracking to your location.
+      </p>
+     </article>
+     <article class="card bg-white rounded-lg shadow-md p-6 focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">
+       24/7 AI Medical Assistant
+      </h3>
+      <p class="text-gray-700">
+       Get instant AI-powered medical advice anytime you need it.
+      </p>
+     </article>
+     <article class="card bg-white rounded-lg shadow-md p-6 focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">
+       Emergency SOS Alerts
+      </h3>
+      <p class="text-gray-700">
+       Send emergency alerts to your loved ones and responders with one tap.
+      </p>
+     </article>
+     <article class="card bg-white rounded-lg shadow-md p-6 focus:outline-none focus:ring-4 focus:ring-blue-300" tabindex="0">
+      <h3 class="text-xl font-semibold mb-2 text-blue-600">
+       Instant Video Consultations
+      </h3>
+      <p class="text-gray-700">
+       Connect with certified doctors via video calls instantly.
+      </p>
+     </article>
+    </section>
+    <section aria-label="Recent activity" class="mb-10">
+     <h3 class="text-2xl font-bold mb-4 text-blue-600 select-none">
+      Recent Activity
+     </h3>
+     <ul aria-live="polite" aria-relevant="additions" class="activity-list list-disc list-inside space-y-2 text-gray-700" id="activityList" tabindex="0">
+      <li>
+       Ambulance dispatched to your location - 10 mins ago
+      </li>
+      <li>
+       AI chat session started - 1 hour ago
+      </li>
+      <li>
+       Video consultation with Dr. Sharma - Yesterday
+      </li>
+      <li>
+       Emergency SOS alert sent to family - 2 days ago
+      </li>
+      <li>
+       Profile updated successfully - 3 days ago
+      </li>
+     </ul>
+    </section>
+    <section aria-label="Health tips" class="mb-10">
+     <h3 class="text-2xl font-bold mb-4 text-blue-600 select-none">
+      Health Tips
+     </h3>
+     <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li>
+       Keep emergency numbers saved and accessible at all times.
+      </li>
+      <li>
+       Maintain a first aid kit at home and in your vehicle.
+      </li>
+      <li>
+       Stay hydrated and eat balanced meals to boost immunity.
+      </li>
+      <li>
+       Regularly update your medical history in the app for quick access.
+      </li>
+      <li>
+       Use the AI assistant to monitor symptoms and get advice early.
+      </li>
+     </ul>
+    </section>
+    <section aria-label="Future plans" class="mb-10 bg-white rounded-lg shadow-md p-6">
+     <h3 class="text-2xl font-bold mb-4 text-blue-600 select-none">
+      Future Plans – HealthMate
+     </h3>
+     <ul class="list-disc list-inside space-y-3 text-gray-700">
+      <li>
+       <strong>Wearable Device Integration</strong> – Connect smartwatches to auto-track vitals (heart rate, SpO2, etc.)
+      </li>
+      <li>
+       <strong>Geo-Fenced Emergency Alerts</strong> – Trigger SOS alerts based on health + location data in real-time
+      </li>
+      <li>
+       <strong>Hospital &amp; Ambulance Onboarding Portal</strong> – Expand network of verified emergency service providers
+      </li>
+      <li>
+       <strong>Freemium + SaaS Model</strong> – Free for users, subscription model for clinics and hospitals
+      </li>
+      <li>
+       <strong>Pan-India Rollout with Regional Language Support</strong> – Multilingual access across cities and villages
+      </li>
+     </ul>
+    </section>
+    <section aria-label="Appointment calendar" class="calendar-section mb-12">
+     <h2 class="text-3xl font-semibold mb-6 text-blue-700 select-none">
+      Appointment Calendar
+     </h2>
+     <div aria-label="Calendar showing appointments" class="calendar grid grid-cols-7 gap-1 text-center text-sm" id="calendarGrid" role="grid">
+      <!-- Weekday Headers -->
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Sun
+      </div>
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Mon
+      </div>
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Tue
+      </div>
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Wed
+      </div>
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Thu
+      </div>
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Fri
+      </div>
+      <div class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none" role="columnheader">
+       Sat
+      </div>
+      <!-- Blank days before month start (example for May 2025 starting on Thursday) -->
+      <div aria-hidden="true" class="calendar-day">
+      </div>
+      <div aria-hidden="true" class="calendar-day">
+      </div>
+      <div aria-hidden="true" class="calendar-day">
+      </div>
+      <!-- Days 1 to 31 -->
+      <div aria-label="May 1" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        1
+       </span>
+      </div>
+      <div aria-label="May 2" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        2
+       </span>
+      </div>
+      <div aria-label="May 3" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        3
+       </span>
+      </div>
+      <div aria-label="May 4, today" class="calendar-day today" tabindex="0">
+       <span class="date-number">
+        4
+       </span>
+      </div>
+      <div aria-label="May 5" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        5
+       </span>
+      </div>
+      <div aria-label="May 6" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        6
+       </span>
+      </div>
+      <div aria-label="May 7" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        7
+       </span>
+      </div>
+      <div aria-label="May 8" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        8
+       </span>
+      </div>
+      <div aria-label="May 9" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        9
+       </span>
+      </div>
+      <div aria-label="May 10" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        10
+       </span>
+      </div>
+      <div aria-label="May 11" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        11
+       </span>
+      </div>
+      <div aria-label="May 12" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        12
+       </span>
+      </div>
+      <div aria-label="May 13" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        13
+       </span>
+      </div>
+      <div aria-label="May 14" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        14
+       </span>
+      </div>
+      <div aria-label="May 15" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        15
+       </span>
+      </div>
+      <div aria-label="May 16" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        16
+       </span>
+      </div>
+      <div aria-label="May 17" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        17
+       </span>
+      </div>
+      <div aria-label="May 18" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        18
+       </span>
+      </div>
+      <div aria-label="May 19" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        19
+       </span>
+      </div>
+      <div aria-label="May 20" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        20
+       </span>
+      </div>
+      <div aria-label="May 21" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        21
+       </span>
+      </div>
+      <div aria-label="May 22" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        22
+       </span>
+      </div>
+      <div aria-label="May 23" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        23
+       </span>
+      </div>
+      <div aria-label="May 24" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        24
+       </span>
+      </div>
+      <div aria-label="May 25" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        25
+       </span>
+      </div>
+      <div aria-label="May 26" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        26
+       </span>
+      </div>
+      <div aria-label="May 27" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        27
+       </span>
+      </div>
+      <div aria-label="May 28" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        28
+       </span>
+      </div>
+      <div aria-label="May 29" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        29
+       </span>
+      </div>
+      <div aria-label="May 30" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        30
+       </span>
+      </div>
+      <div aria-label="May 31" class="calendar-day" tabindex="0">
+       <span class="date-number">
+        31
+       </span>
+      </div>
+     </div>
+     <p style="margin-top:1rem; font-size:0.9rem; color:#475569; user-select:none;">
+      <strong>
+       Legend:
+      </strong>
+      <span style="background:#3b82f6; color:white; padding:0 6px; border-radius:4px;">
+       Today
+      </span>
+      <span style="background:#1e293b; color:white; padding:0 6px; border-radius:4px;">
+       Upcoming Appointment
+      </span>
+      <span style="background:#dc2626; color:white; padding:0 6px; border-radius:4px;">
+       Appointment Today
+      </span>
+     </p>
+    </section>
+   </main>
+  </div>
+  <!-- Floating AI Chat Button -->
+  <button aria-label="Chat with AI expert" class="ai-btn fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg flex items-center space-x-2 px-4 py-3 z-50 focus:outline-none focus:ring-4 focus:ring-blue-400" id="aiChatBtn">
+   <span class="hidden sm:inline">
+    Chat with AI
+   </span>
+  </button>
+
+  <!-- AI Chat Modal -->
+  <div id="aiChatModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
+      <div class="flex justify-between items-center border-b p-4">
+        <h2 class="text-lg font-semibold text-blue-600">AI Chat</h2>
+        <button aria-label="Close AI Chat" class="text-gray-600 hover:text-gray-800 focus:outline-none" id="closeAiChatModal">
+          &times;
+        </button>
+      </div>
+      <div class="p-4">
+        <iframe src="http://healthmate-chat.vercel.app" class="w-full h-96 rounded" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const aiChatBtn = document.getElementById('aiChatBtn');
+      const aiChatModal = document.getElementById('aiChatModal');
+      const closeAiChatModal = document.getElementById('closeAiChatModal');
+
+      aiChatBtn.addEventListener('click', () => {
+        aiChatModal.classList.remove('hidden');
+      });
+
+      closeAiChatModal.addEventListener('click', () => {
+        aiChatModal.classList.add('hidden');
+      });
+
+      aiChatModal.addEventListener('click', (e) => {
+        if (e.target === aiChatModal) {
+          aiChatModal.classList.add('hidden');
+        }
+      });
+    })();
+  </script>
+  <!--Floting SOS-->
+  <a aria-label="SOS"
+   class="sos-btn fixed bottom-6 left-6 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-full shadow-lg flex items-center space-x-2 px-4 py-3 z-50 focus:outline-none focus:ring-4 focus:ring-red-400"
+   href="emergency.html">
+   <span class="hidden sm:inline">
+      SOS
+   </span>
+</a>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 mt-auto py-4">
+   <p class="text-center text-gray-600 text-sm select-none">
+    © 2025 HealthMate. All rights reserved. | Designed with
+    <span aria-label="love" role="img">
+     ❤️
+    </span>
+    for your health.
+   </p>
+  </footer>
+  <script>
+   (function() {
+      const carouselInner = document.getElementById('carousel-inner');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const totalItems = carouselInner.children.length;
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+        for(let i=0; i < totalItems; i++) {
+          carouselInner.children[i].setAttribute('aria-hidden', i !== currentIndex);
+        }
+      }
+
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        updateCarousel();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalItems;
+        updateCarousel();
+      });
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalItems;
+        updateCarousel();
+      }, 8000);
+
+      updateCarousel();
+
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuBtn.addEventListener('click', () => {
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+        if (expanded) {
+          mobileMenu.classList.add('hidden');
+        } else {
+          mobileMenu.classList.remove('hidden');
+        }
+      });
+
+      const calendarGrid = document.getElementById('calendarGrid');
+
+      function addAppointmentToCalendar(dateStr) {
+        const dayNum = parseInt(dateStr.split('-')[2], 10);
+        // Calculate index: 7 weekday headers + 3 blank days = 10 offset
+        const dayIndex = 10 + dayNum - 1;
+        const dayDiv = calendarGrid.children[dayIndex];
+        if (!dayDiv) return;
+
+        // Remove existing indicator if any
+        const existingIndicator = dayDiv.querySelector('.appointment-indicator');
+        if (existingIndicator) existingIndicator.remove();
+
+        const indicator = document.createElement('span');
+        indicator.className = 'appointment-indicator';
+        indicator.title = 'Upcoming appointment';
+        dayDiv.appendChild(indicator);
+
+        const todayDate = new Date();
+        todayDate.setHours(0,0,0,0);
+        const apptDate = new Date(dateStr);
+        apptDate.setHours(0,0,0,0);
+
+        dayDiv.classList.remove('upcoming', 'appointment-today');
+        if (apptDate.getTime() === todayDate.getTime()) {
+          dayDiv.classList.add('appointment-today');
+          indicator.title = 'Appointment today';
+        } else if (apptDate > todayDate) {
+          dayDiv.classList.add('upcoming');
+        }
+      }
+
+      function loadAppointments() {
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        appointments.forEach(({date}) => {
+          addAppointmentToCalendar(date);
+        });
+      }
+
+      loadAppointments();
+
+      // Book Appointment buttons redirect to appointments.html
+      const bookButtons = document.querySelectorAll('.book-btn');
+      bookButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          window.location.href = 'appointments.html';
+        });
+      });
+    })();
+  </script>
+ </body>
+</html>

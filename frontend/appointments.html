@@ -1,0 +1,483 @@
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HealthMate | Book Appointment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .appointment-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      margin-left: 4px;
+      vertical-align: middle;
+      background-color: #1e293b; /* dark slate */
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-30">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+    >
+      <a
+        href="dashboard.html"
+        class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+      >
+        <img
+          src="assets/logo.png"
+          alt="logo"
+          class="w-10 h-10 object-contain"
+          width="40"
+          height="40"
+        />
+        <span class="text-2xl font-semibold text-blue-600 select-none">HealthMate</span>
+      </a>
+      <nav
+        aria-label="Primary navigation"
+        class="hidden md:flex space-x-6 font-medium text-gray-700"
+      >
+        <a
+          href="dashboard.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Dashboard</a
+        >
+        <a
+          href="profile.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Profile</a
+        >
+        <a
+          href="appointments.html"
+          class="text-blue-600 border-b-2 border-blue-600 pb-1"
+          aria-current="page"
+          >Appointments</a
+        >
+        <a
+          href="emergency.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Emergency</a
+        >
+        <a
+          href="ai-chatbot.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >AI Chat</a
+        >
+      </nav>
+      <div class="hidden md:block">
+        <a
+          href="dashboard.html"
+          class="text-gray-700 hover:text-blue-600 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-3 py-1"
+          >Logout</a
+        >
+      </div>
+      <!-- Mobile menu button -->
+      <button
+        id="mobileMenuBtn"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+        aria-label="Toggle menu"
+        class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+      >
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <nav
+      id="mobileMenu"
+      class="md:hidden hidden bg-white border-t border-gray-200"
+      aria-label="Mobile navigation"
+    >
+      <a
+        href="dashboard.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Dashboard</a
+      >
+      <a
+        href="profile.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Profile</a
+      >
+      <a
+        href="appointments.html"
+        class="block px-4 py-3 text-blue-600 font-semibold border-l-4 border-blue-600"
+        aria-current="page"
+        >Appointments</a
+      >
+      <a
+        href="emergency.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Emergency</a
+      >
+      <a
+        href="ai-chatbot.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >AI Chat</a
+      >
+      <a
+        href="dashboard.html"
+        class="block px-4 py-3 text-gray-700 hover:text-blue-600 font-semibold border-t border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >Logout</a
+      >
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main
+    role="main"
+    class="flex-grow max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8 mb-12 grid grid-cols-1 md:grid-cols-2 gap-10"
+  >
+    <section>
+      <h1 class="text-3xl font-semibold text-blue-700 mb-6 select-none">
+        Book an Appointment
+      </h1>
+
+      <form id="appointmentForm" class="space-y-6" novalidate>
+        <div>
+          <label
+            for="name"
+            class="block text-gray-700 font-semibold mb-2"
+            >Your Name</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Enter your full name"
+            class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <p class="text-red-600 mt-1 text-sm hidden" id="nameError">
+            Please enter your name.
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="doctor"
+            class="block text-gray-700 font-semibold mb-2"
+            >Select Doctor</label
+          >
+          <select
+            id="doctor"
+            name="doctor"
+            required
+            class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="" disabled selected>Select a doctor</option>
+            <option>Dr. Rajesh Kumar</option>
+            <option>Dr. Anjali Mehta</option>
+            <option>Dr. Suresh Patel</option>
+            <option>Dr. Kavita Sharma</option>
+            <option>Dr. Amit Joshi</option>
+          </select>
+          <p class="text-red-600 mt-1 text-sm hidden" id="doctorError">
+            Please select a doctor.
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="date"
+            class="block text-gray-700 font-semibold mb-2"
+            >Appointment Date</label
+          >
+          <input
+            type="date"
+            id="date"
+            name="date"
+            required
+            min=""
+            class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <p class="text-red-600 mt-1 text-sm hidden" id="dateError">
+            Please select a valid date (today or later).
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md focus:outline-none focus:ring-4 focus:ring-blue-400"
+        >
+          Book Appointment
+        </button>
+      </form>
+    </section>
+
+    <section aria-label="Appointment calendar" class="calendar-section">
+      <h2 class="text-3xl font-semibold mb-6 text-blue-700 select-none">
+        Appointment Calendar
+      </h2>
+      <div
+        aria-label="Calendar showing appointments"
+        class="calendar grid grid-cols-7 gap-1 text-center text-sm"
+        role="grid"
+        id="calendarGrid"
+      >
+        <!-- Weekday Headers -->
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Sun
+        </div>
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Mon
+        </div>
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Tue
+        </div>
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Wed
+        </div>
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Thu
+        </div>
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Fri
+        </div>
+        <div
+          class="calendar-day font-semibold bg-slate-300 text-slate-900 py-2 rounded select-none"
+          role="columnheader"
+        >
+          Sat
+        </div>
+        <!-- Blank days before month start (example for May 2025 starting on Thursday) -->
+        <div aria-hidden="true" class="calendar-day"></div>
+        <div aria-hidden="true" class="calendar-day"></div>
+        <div aria-hidden="true" class="calendar-day"></div>
+        <!-- Days 1 to 31 will be generated dynamically -->
+      </div>
+      <p class="mt-4 text-sm text-slate-600 select-none max-w-md">
+        <strong>Legend:</strong>
+        <span class="inline-block bg-blue-500 text-white px-2 py-0.5 rounded ml-2">
+          Today
+        </span>
+        <span class="inline-block bg-slate-900 text-white px-2 py-0.5 rounded ml-2">
+          Upcoming Appointment
+        </span>
+        <span class="inline-block bg-red-600 text-white px-2 py-0.5 rounded ml-2">
+          Appointment Today
+        </span>
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-4 mt-auto">
+    <p class="text-center text-gray-600 text-sm select-none">
+      © 2025 HealthMate. All rights reserved. | Designed with
+      <span aria-label="love" role="img">❤️</span> for your health.
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuBtn.addEventListener('click', () => {
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+        if (expanded) {
+          mobileMenu.classList.add('hidden');
+        } else {
+          mobileMenu.classList.remove('hidden');
+        }
+      });
+
+      // Set min date for date input to today
+      const dateInput = document.getElementById('date');
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
+      dateInput.setAttribute('min', todayStr);
+
+      // Preselect doctor if query param present
+      const urlParams = new URLSearchParams(window.location.search);
+      const doctorParam = urlParams.get('doctor');
+      if (doctorParam) {
+        const doctorSelect = document.getElementById('doctor');
+        for (const option of doctorSelect.options) {
+          if (option.value === doctorParam) {
+            option.selected = true;
+            break;
+          }
+        }
+      }
+
+      const form = document.getElementById('appointmentForm');
+      const nameInput = document.getElementById('name');
+      const doctorSelect = document.getElementById('doctor');
+      const calendarGrid = document.getElementById('calendarGrid');
+
+      const nameError = document.getElementById('nameError');
+      const doctorError = document.getElementById('doctorError');
+      const dateError = document.getElementById('dateError');
+
+      // Initialize calendar days 1-31 with date numbers and aria-labels
+      function initCalendarDays() {
+        // Remove existing days after weekday headers and blank days
+        while (calendarGrid.children.length > 10) {
+          calendarGrid.removeChild(calendarGrid.lastChild);
+        }
+        for (let day = 1; day <= 31; day++) {
+          const dayDiv = document.createElement('div');
+          dayDiv.className =
+            'calendar-day cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 rounded relative';
+          dayDiv.setAttribute('role', 'gridcell');
+          dayDiv.setAttribute('tabindex', '0');
+          dayDiv.setAttribute('aria-label', `May ${day}`);
+          const spanNum = document.createElement('span');
+          spanNum.className = 'date-number';
+          spanNum.textContent = day;
+          dayDiv.appendChild(spanNum);
+          calendarGrid.appendChild(dayDiv);
+        }
+        // Mark today (May 4) for demo
+        const todayIndex = 10 + 4 - 1;
+        const todayDiv = calendarGrid.children[todayIndex];
+        if (todayDiv) {
+          todayDiv.classList.add('today');
+          todayDiv.setAttribute('aria-label', 'May 4, today');
+        }
+      }
+
+      // Add appointment indicator dot to calendar day
+      function addAppointmentToCalendar(dateStr) {
+        const dayNum = parseInt(dateStr.split('-')[2], 10);
+        const dayIndex = 10 + dayNum - 1;
+        const dayDiv = calendarGrid.children[dayIndex];
+        if (!dayDiv) return;
+
+        // Remove existing indicator if any
+        const existingIndicator = dayDiv.querySelector('.appointment-indicator');
+        if (existingIndicator) existingIndicator.remove();
+
+        const indicator = document.createElement('span');
+        indicator.className = 'appointment-indicator absolute top-1 right-1';
+        indicator.title = 'Upcoming appointment';
+        dayDiv.appendChild(indicator);
+
+        // Mark day as upcoming or appointment today
+        const todayDate = new Date();
+        todayDate.setHours(0, 0, 0, 0);
+        const apptDate = new Date(dateStr);
+        apptDate.setHours(0, 0, 0, 0);
+
+        dayDiv.classList.remove('upcoming', 'appointment-today');
+        if (apptDate.getTime() === todayDate.getTime()) {
+          dayDiv.classList.add('appointment-today');
+          indicator.title = 'Appointment today';
+        } else if (apptDate > todayDate) {
+          dayDiv.classList.add('upcoming');
+        }
+      }
+
+      // Load appointments from localStorage and update calendar
+      function loadAppointments() {
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        appointments.forEach((appt) => {
+          addAppointmentToCalendar(appt.date);
+        });
+      }
+
+      initCalendarDays();
+      loadAppointments();
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Reset errors
+        nameError.classList.add('hidden');
+        doctorError.classList.add('hidden');
+        dateError.classList.add('hidden');
+
+        let valid = true;
+
+        if (!nameInput.value.trim()) {
+          nameError.classList.remove('hidden');
+          valid = false;
+        }
+
+        if (!doctorSelect.value) {
+          doctorError.classList.remove('hidden');
+          valid = false;
+        }
+
+        if (!dateInput.value) {
+          dateError.textContent = 'Please select a valid date (today or later).';
+          dateError.classList.remove('hidden');
+          valid = false;
+        } else {
+          const selectedDate = new Date(dateInput.value);
+          const todayDate = new Date();
+          todayDate.setHours(0, 0, 0, 0);
+          if (selectedDate < todayDate) {
+            dateError.textContent = 'Date cannot be in the past.';
+            dateError.classList.remove('hidden');
+            valid = false;
+          }
+        }
+
+        if (!valid) return;
+
+        // Save appointment to localStorage
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        // Check for duplicate appointment (same doctor and date and name)
+        const duplicate = appointments.find(
+          (appt) =>
+            appt.doctor === doctorSelect.value &&
+            appt.date === dateInput.value &&
+            appt.name === nameInput.value.trim()
+        );
+        if (duplicate) {
+          alert(`You already have an appointment with ${doctorSelect.value} on ${dateInput.value}.`);
+          return;
+        }
+
+        const newAppointment = {
+          name: nameInput.value.trim(),
+          doctor: doctorSelect.value,
+          date: dateInput.value,
+        };
+        appointments.push(newAppointment);
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+
+        // Update calendar UI
+        addAppointmentToCalendar(dateInput.value);
+
+        alert(`Appointment successfully booked with ${doctorSelect.value} on ${dateInput.value}.`);
+
+        // Reset form
+        form.reset();
+        dateInput.setAttribute('min', todayStr);
+      });
+    })();
+  </script>
+</body>
+</html>

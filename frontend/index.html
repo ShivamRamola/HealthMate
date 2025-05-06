@@ -1,0 +1,309 @@
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   HealthMate | Your Emergency Health Partner
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f9fafb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    /* Animations */
+    @keyframes slideDown {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slideIn {
+      from {
+        width: 0;
+      }
+      to {
+        width: 80px;
+      }
+    }
+    @keyframes pop {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 text-gray-900">
+  <!-- Header -->
+  <header class="bg-blue-600 text-white px-6 py-4 flex flex-wrap items-center justify-between animate-slideDown">
+   <a class="flex items-center space-x-2 text-xl font-extrabold tracking-wide" href="#">
+    <img alt="logo" class="w-10 h-10" height="40" loading="lazy" src="assets/logo.png" width="40"/>
+    <span>
+     HealthMate
+    </span>
+   </a>
+   <nav class="flex flex-wrap justify-center space-x-4 text-white text-sm sm:text-base mt-3 sm:mt-0 w-full sm:w-auto">
+    <a class="hover:text-blue-200 font-semibold transition-colors duration-300" href="about.html">
+     About
+    </a>
+    <a class="hover:text-blue-200 font-semibold transition-colors duration-300" href="services.html">
+     Services
+    </a>
+    <a class="hover:text-blue-200 font-semibold transition-colors duration-300" href="nearby-hospital.html">
+     Hospitals
+    </a>
+    <a class="hover:text-blue-200 font-semibold transition-colors duration-300" href="ai-chatbot.html">
+     AI Chat
+    </a>
+   </nav>
+   <div class="flex space-x-3 mt-3 sm:mt-0 w-full sm:w-auto justify-center sm:justify-start">
+    <a class="bg-white text-blue-600 font-semibold rounded-md px-4 py-1.5 hover:bg-blue-100 transition" href="login.html">
+     Login
+    </a>
+    <a class="bg-white text-blue-600 font-semibold rounded-md px-4 py-1.5 hover:bg-blue-100 transition" href="signup.html">
+     Signup
+    </a>
+   </div>
+  </header>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-600 to-cyan-400 text-white text-center px-6 py-20 animate-fadeIn">
+   <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 tracking-tight hover:tracking-widest transition-all duration-300 max-w-4xl mx-auto">
+    Your Lifeline in Emergency
+   </h1>
+   <p class="text-lg sm:text-xl max-w-3xl mx-auto mb-8 hover:-translate-y-1 transition-transform duration-300">
+    HealthMate connects you with ambulance, doctors and more — instantly
+   </p>
+   <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-xs mx-auto sm:max-w-none">
+    <a class="bg-white text-blue-600 font-semibold rounded-lg px-6 py-3 shadow-md hover:bg-blue-50 hover:scale-105 transition transform duration-300" href="#screenshots">
+     Download App
+    </a>
+    <a class="bg-white text-blue-600 font-semibold rounded-lg px-6 py-3 shadow-md hover:bg-blue-50 hover:scale-105 transition transform duration-300 flex items-center justify-center gap-2" href="tel:8008280020">
+     <i class="fas fa-phone-alt">
+     </i>
+     Call: 8008280020
+    </a>
+   </div>
+  </section>
+  <!-- AI Button -->
+  <!-- AI Chat Modal -->
+  <div id="aiChatModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
+      <div class="flex justify-between items-center border-b p-4">
+        <h2 class="text-lg font-semibold text-blue-600">AI Chat</h2>
+        <button aria-label="Close AI Chat" class="text-gray-600 hover:text-gray-800 focus:outline-none" id="closeAiChatModal">
+          &times;
+        </button>
+      </div>
+      <div class="p-4">
+        <iframe src="http://healthmate-chat.vercel.app" class="w-full h-96 rounded" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const aiChatBtn = document.getElementById('aiChatBtn');
+      const aiChatModal = document.getElementById('aiChatModal');
+      const closeAiChatModal = document.getElementById('closeAiChatModal');
+
+      aiChatBtn.addEventListener('click', () => {
+        aiChatModal.classList.remove('hidden');
+      });
+
+      closeAiChatModal.addEventListener('click', () => {
+        aiChatModal.classList.add('hidden');
+      });
+
+      aiChatModal.addEventListener('click', (e) => {
+        if (e.target === aiChatModal) {
+          aiChatModal.classList.add('hidden');
+        }
+      });
+    })();
+  </script>
+  <!-- Why Choose Us Section -->
+  <section class="py-16 px-6 max-w-7xl mx-auto text-center animate-fadeInUp">
+   <h2 class="text-3xl sm:text-4xl font-extrabold mb-3 relative inline-block after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:h-1.5 after:w-20 after:rounded-full after:bg-blue-600 after:animate-slideIn">
+    Why Choose HealthMate?
+   </h2>
+   <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Icon of a fast ambulance with siren lights flashing" class="mb-5 animate-pop" height="60" loading="lazy" src="https://storage.googleapis.com/a1aa/image/a7f197ad-8529-4934-773e-d6b4d15aacb9.jpg" width="60"/>
+     <h3 class="text-xl font-semibold mb-2">
+      Fast Ambulance Dispatch
+     </h3>
+     <p class="text-gray-600">
+      Immediate dispatch with live tracking, ensuring fast arrival in emergencies.
+     </p>
+    </div>
+    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Icon representing 24/7 AI medical assistant with chatbot bubbles" class="mb-5 animate-pop" height="60" loading="lazy" src="https://storage.googleapis.com/a1aa/image/8d2123c4-585d-4845-3bf7-924c6fbd0314.jpg" width="60"/>
+     <h3 class="text-xl font-semibold mb-2">
+      24/7 AI Medical Assistant
+     </h3>
+     <p class="text-gray-600">
+      Our AI assistant provides you with 24/7 medical advice and assistance.
+     </p>
+    </div>
+    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Icon of emergency SOS alert with a red siren" class="mb-5 animate-pop" height="60" loading="lazy" src="https://storage.googleapis.com/a1aa/image/f8d31208-7dd1-4451-31e3-007efb2ca12d.jpg" width="60"/>
+     <h3 class="text-xl font-semibold mb-2">
+      Emergency SOS Alerts
+     </h3>
+     <p class="text-gray-600">
+      Send emergency alerts to loved ones and responders with a single tap.
+     </p>
+    </div>
+    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Icon of video consultation with a doctor on screen" class="mb-5 animate-pop" height="60" loading="lazy" src="https://storage.googleapis.com/a1aa/image/dbbea1bb-f6ce-4279-efc6-dfff7d055e49.jpg" width="60"/>
+     <h3 class="text-xl font-semibold mb-2">
+      Instant Video Consultations
+     </h3>
+     <p class="text-gray-600">
+      Get a video consultation with certified professionals in emergencies.
+     </p>
+    </div>
+   </div>
+  </section>
+  <!-- Testimonials Section -->
+  <section class="py-16 px-6 max-w-7xl mx-auto text-center animate-fadeInUp bg-white rounded-xl shadow-lg">
+   <h2 class="text-3xl sm:text-4xl font-extrabold mb-10 relative inline-block after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:h-1.5 after:w-20 after:rounded-full after:bg-blue-600 after:animate-slideIn">
+    What Users Say
+   </h2>
+   <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+    <div class="testimonial-card bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Portrait of Aarti, a smiling middle-aged Indian woman from Mumbai" class="w-16 h-16 rounded-full mb-5 hover:rotate-12 transition-transform duration-300" loading="lazy" src="https://i.pravatar.cc/100?img=1"/>
+     <p class="italic text-gray-700 mb-3">
+      “HealthMate saved my dad's life. I’ll be forever grateful.”
+     </p>
+     <strong class="text-blue-600">
+      - Aarti, Mumbai
+     </strong>
+    </div>
+    <div class="testimonial-card bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Portrait of Ramesh, a young Indian man from Jaipur with glasses" class="w-16 h-16 rounded-full mb-5 hover:rotate-12 transition-transform duration-300" loading="lazy" src="https://i.pravatar.cc/100?img=2"/>
+     <p class="italic text-gray-700 mb-3">
+      “The AI chat helped me understand my symptoms instantly.”
+     </p>
+     <strong class="text-blue-600">
+      - Ramesh, Jaipur
+     </strong>
+    </div>
+    <div class="testimonial-card bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-3 transition-transform duration-300 flex flex-col items-center">
+     <img alt="Portrait of Priya, a cheerful Indian woman from Bengaluru" class="w-16 h-16 rounded-full mb-5 hover:rotate-12 transition-transform duration-300" loading="lazy" src="https://i.pravatar.cc/100?img=3"/>
+     <p class="italic text-gray-700 mb-3">
+      “Super easy to use and incredibly fast response.”
+     </p>
+     <strong class="text-blue-600">
+      - Priya, Bengaluru
+     </strong>
+    </div>
+   </div>
+  </section>
+  <!-- Screenshots Section -->
+  <section class="py-16 px-6 max-w-7xl mx-auto text-center animate-fadeInUp" id="screenshots">
+   <h2 class="text-3xl sm:text-4xl font-extrabold mb-3 relative inline-block after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:h-1.5 after:w-20 after:rounded-full after:bg-blue-600 after:animate-slideIn">
+    Experience the App in Action
+   </h2>
+   <p class="text-gray-600 max-w-3xl mx-auto mb-8 text-lg sm:text-xl">
+    HealthMate brings your emergency support to your fingertips. Here's a glimpse of what you'll get!
+   </p>
+   <div class="space-y-4 max-w-xl mx-auto text-left text-gray-700 text-base sm:text-lg">
+    <p>
+     <span class="inline-block mr-2 text-2xl">
+      📍
+     </span>
+     <strong>
+      GPS Hospital Locator
+     </strong>
+     — Always find the nearest help, wherever you are.
+    </p>
+    <p>
+     <span class="inline-block mr-2 text-2xl">
+      🧠
+     </span>
+     <strong>
+      AI Health Assistant
+     </strong>
+     — Chat instantly and understand your symptoms.
+    </p>
+    <p>
+     <span class="inline-block mr-2 text-2xl">
+      🎥
+     </span>
+     <strong>
+      Emergency Video Consults
+     </strong>
+     — Talk to a doctor in seconds, no matter the hour.
+    </p>
+   </div>
+   <h3 class="text-2xl font-semibold mt-12 mb-6">
+    App Screenshots
+   </h3>
+   <div aria-label="App screenshots gallery" class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+    <img alt="Mobile app screenshot showing GPS hospital locator with map and nearby hospitals marked" class="rounded-xl shadow-lg hover:scale-105 hover:rotate-2 transition-transform duration-300" height="440" loading="lazy" src="https://storage.googleapis.com/a1aa/image/945c77a4-06a2-4fee-3209-8df119d7f40b.jpg" width="220"/>
+    <img alt="Mobile app screenshot showing AI chatbot interface with conversation bubbles" class="rounded-xl shadow-lg hover:scale-105 hover:-rotate-2 transition-transform duration-300" height="440" loading="lazy" src="https://storage.googleapis.com/a1aa/image/690bc811-b814-454e-bc38-4ddf74bc8016.jpg" width="220"/>
+    <img alt="Mobile app screenshot showing video consultation screen with doctor on call" class="rounded-xl shadow-lg hover:scale-105 hover:rotate-2 transition-transform duration-300" height="440" loading="lazy" src="https://storage.googleapis.com/a1aa/image/745958aa-e235-405b-3550-9e8aa3f983aa.jpg" width="220"/>
+   </div>
+   <div class="mt-10 flex justify-center gap-8">
+    <a aria-label="Download on Google Play Store" href="assets/google download button.png" rel="noopener noreferrer" target="_blank">
+     <img alt="Google Play Store download button with Google Play logo" class="h-14 hover:scale-110 hover:-rotate-3 transition-transform duration-300" height="55" loading="lazy" src="assets/google download button.png" width="200"/>
+    </a>
+    <a aria-label="Download on Apple App Store" href="assets/apple download button.png" rel="noopener noreferrer" target="_blank">
+     <img alt="Apple App Store download button with Apple logo" class="h-14 hover:scale-110 hover:rotate-3 transition-transform duration-300" height="55" loading="lazy" src="assets/apple download button.png" width="200"/>
+    </a>
+   </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-gray-200 text-gray-600 text-center py-6 text-sm sm:text-base animate-fadeIn">
+   <p>
+    © 2025 HealthMate. All rights reserved. | Designed with
+    <span aria-label="love" role="img">
+     ❤️
+    </span>
+    for your health.
+   </p>
+  </footer>
+ </body>
+</html>

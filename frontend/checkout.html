@@ -1,0 +1,605 @@
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HealthMate | Checkout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-30">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
+    >
+      <a
+        href="dashboard.html"
+        class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+      >
+        <img
+          src="assets/logo.png"
+          alt="logo"
+          class="w-10 h-10 object-contain"
+          width="60"
+          height="60"
+        />
+        <span class="text-2xl font-semibold text-blue-600 select-none">HealthMate</span>
+      </a>
+      <nav
+        aria-label="Primary navigation"
+        class="hidden md:flex space-x-6 font-medium text-gray-700"
+      >
+        <a
+          href="dashboard.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Dashboard</a
+        >
+        <a
+          href="profile.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Profile</a
+        >
+        <a
+          href="appointments.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Appointments</a
+        >
+        <a
+          href="emergency.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Emergency</a
+        >
+        <a
+          href="ai-chatbot.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >AI Chat</a
+        >
+        <a
+          href="pharmacy.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Pharmacy</a
+        >
+        <a
+          href="cart.html"
+          class="hover:text-blue-600 focus:outline-none focus:text-blue-600"
+          >Cart</a
+        >
+        <a
+          href="checkout.html"
+          class="text-blue-600 border-b-2 border-blue-600 pb-1"
+          aria-current="page"
+          >Checkout</a
+        >
+      </nav>
+      <div class="hidden md:block">
+        <a
+          href="dashboard.html"
+          class="text-gray-700 hover:text-blue-600 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-3 py-1"
+          >Logout</a
+        >
+      </div>
+      <!-- Mobile menu button -->
+      <button
+        id="mobileMenuBtn"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+        aria-label="Toggle menu"
+        class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+      >
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <nav
+      id="mobileMenu"
+      class="md:hidden hidden bg-white border-t border-gray-200"
+      aria-label="Mobile navigation"
+    >
+      <a
+        href="dashboard.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Dashboard</a
+      >
+      <a
+        href="profile.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Profile</a
+      >
+      <a
+        href="appointments.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Appointments</a
+      >
+      <a
+        href="emergency.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Emergency</a
+      >
+      <a
+        href="ai-chatbot.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >AI Chat</a
+      >
+      <a
+        href="pharmacy.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Pharmacy</a
+      >
+      <a
+        href="cart.html"
+        class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none"
+        >Cart</a
+      >
+      <a
+        href="checkout.html"
+        class="block px-4 py-3 text-blue-600 font-semibold border-l-4 border-blue-600"
+        aria-current="page"
+        >Checkout</a
+      >
+      <a
+        href="dashboard.html"
+        class="block px-4 py-3 text-gray-700 hover:text-blue-600 font-semibold border-t border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >Logout</a
+      >
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main
+    role="main"
+    class="flex-grow max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8 mb-12"
+  >
+    <h1 class="text-3xl font-semibold text-blue-700 mb-6 select-none">
+      Checkout
+    </h1>
+
+    <form id="checkoutForm" class="space-y-8" novalidate>
+      <section aria-label="Shipping information">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 select-none">Shipping Information</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="fullName" class="block text-gray-700 font-medium mb-1">Full Name <span class="text-red-600">*</span></label>
+            <input type="text" id="fullName" name="fullName" required aria-required="true" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="fullNameError">Please enter your full name.</p>
+          </div>
+          <div>
+            <label for="email" class="block text-gray-700 font-medium mb-1">Email Address <span class="text-red-600">*</span></label>
+            <input type="email" id="email" name="email" required aria-required="true" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="emailError">Please enter a valid email address.</p>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="address" class="block text-gray-700 font-medium mb-1">Address <span class="text-red-600">*</span></label>
+            <textarea id="address" name="address" rows="3" required aria-required="true" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            <p class="mt-1 text-red-600 text-sm hidden" id="addressError">Please enter your shipping address.</p>
+          </div>
+          <div>
+            <label for="city" class="block text-gray-700 font-medium mb-1">City <span class="text-red-600">*</span></label>
+            <input type="text" id="city" name="city" required aria-required="true" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="cityError">Please enter your city.</p>
+          </div>
+          <div>
+            <label for="state" class="block text-gray-700 font-medium mb-1">State/Province <span class="text-red-600">*</span></label>
+            <input type="text" id="state" name="state" required aria-required="true" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="stateError">Please enter your state or province.</p>
+          </div>
+          <div>
+            <label for="zip" class="block text-gray-700 font-medium mb-1">ZIP/Postal Code <span class="text-red-600">*</span></label>
+            <input type="text" id="zip" name="zip" required aria-required="true" pattern="^[a-zA-Z0-9\s-]{3,10}$" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="zipError">Please enter a valid ZIP or postal code.</p>
+          </div>
+          <div>
+            <label for="phone" class="block text-gray-700 font-medium mb-1">Phone Number <span class="text-red-600">*</span></label>
+            <input type="tel" id="phone" name="phone" required aria-required="true" pattern="^\+?[0-9\s\-]{7,15}$" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="phoneError">Please enter a valid phone number.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-label="Order summary">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 select-none">Order Summary</h2>
+        <div id="orderSummary" class="bg-gray-50 border border-gray-200 rounded p-4 max-h-64 overflow-y-auto">
+          <!-- Order items injected here -->
+        </div>
+        <div class="mt-4 flex justify-between items-center font-semibold text-lg text-gray-900 select-none">
+          <span>Total:</span>
+          <span id="orderTotal">₹0.00</span>
+        </div>
+      </section>
+
+      <section aria-label="Payment information">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4 select-none">Payment Information</h2>
+        <fieldset class="mb-6 border border-gray-300 rounded p-4">
+          <legend class="font-semibold text-gray-700 mb-4">Select Payment Method <span class="text-red-600">*</span></legend>
+          <div class="space-y-3">
+            <label class="flex items-center space-x-3 cursor-pointer">
+              <input type="radio" name="paymentMethod" value="card" required aria-required="true" class="form-radio text-blue-600 focus:ring-blue-500" checked />
+              <span class="text-gray-800 font-medium">Credit/Debit Card</span>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer">
+              <input type="radio" name="paymentMethod" value="upi" class="form-radio text-blue-600 focus:ring-blue-500" />
+              <span class="text-gray-800 font-medium">UPI</span>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer">
+              <input type="radio" name="paymentMethod" value="cash" class="form-radio text-blue-600 focus:ring-blue-500" />
+              <span class="text-gray-800 font-medium">Cash on Delivery</span>
+            </label>
+          </div>
+          <p class="mt-1 text-red-600 text-sm hidden" id="paymentMethodError">Please select a payment method.</p>
+        </fieldset>
+
+        <div id="cardPaymentFields" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="cardName" class="block text-gray-700 font-medium mb-1">Name on Card <span class="text-red-600">*</span></label>
+            <input type="text" id="cardName" name="cardName" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="cardNameError">Please enter the name on your card.</p>
+          </div>
+          <div>
+            <label for="cardNumber" class="block text-gray-700 font-medium mb-1">Card Number <span class="text-red-600">*</span></label>
+            <input type="text" id="cardNumber" name="cardNumber" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="cardNumberError">Please enter a valid card number (13-19 digits).</p>
+          </div>
+          <div>
+            <label for="expiryDate" class="block text-gray-700 font-medium mb-1">Expiry Date (MM/YY) <span class="text-red-600">*</span></label>
+            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="expiryDateError">Please enter a valid expiry date (MM/YY).</p>
+          </div>
+          <div>
+            <label for="cvv" class="block text-gray-700 font-medium mb-1">CVV <span class="text-red-600">*</span></label>
+            <input type="password" id="cvv" name="cvv" maxlength="4" inputmode="numeric" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <p class="mt-1 text-red-600 text-sm hidden" id="cvvError">Please enter a valid 3 or 4 digit CVV.</p>
+          </div>
+        </div>
+
+        <div id="upiPaymentField" class="hidden">
+          <label for="upiId" class="block text-gray-700 font-medium mb-1">UPI ID <span class="text-red-600">*</span></label>
+          <input type="text" id="upiId" name="upiId" placeholder="example@upi" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <p class="mt-1 text-red-600 text-sm hidden" id="upiIdError">Please enter a valid UPI ID.</p>
+
+          <div class="mt-4 space-y-4">
+            <p class="font-semibold text-gray-800 select-none">Or pay using one of the following UPI apps:</p>
+            <div class="grid grid-cols-3 gap-4">
+              <a href="#" id="payWithGooglePay" class="flex flex-col items-center p-3 border border-gray-300 rounded hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" target="_blank" rel="noopener noreferrer" aria-label="Pay with Google Pay">
+                <img src="assets/gpay.jpg" alt="Google Pay logo" class="w-16 h-16 object-contain" />
+                <span class="mt-2 text-sm text-gray-700">Google Pay</span>
+              </a>
+              <a href="#" id="payWithPhonePe" class="flex flex-col items-center p-3 border border-gray-300 rounded hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" target="_blank" rel="noopener noreferrer" aria-label="Pay with PhonePe">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3NEWGPLVjlifhLuKCIWhj2h4QV1p2SCtZ7vTLayCvpP6nJ4eCAQ&s=10&ec=72940544" alt="PhonePe logo" class="w-16 h-16 object-contain" />
+                <span class="mt-2 text-sm text-gray-700">PhonePe</span>
+              </a>
+              <a href="#" id="payWithBhim" class="flex flex-col items-center p-3 border border-gray-300 rounded hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" target="_blank" rel="noopener noreferrer" aria-label="Pay with BHIM">
+                <img src="assets/bhim.jpg" alt="BHIMlogo" class="w-16 h-16 object-contain" />
+                <span class="mt-2 text-sm text-gray-700">BHIM</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div id="cashInfo" class="hidden text-gray-700 mt-2 select-none">
+          <p>Pay with cash upon delivery. Please keep the exact amount ready.</p>
+        </div>
+      </section>
+
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center space-x-2"
+          aria-label="Place order"
+        >
+          <i class="fas fa-check-circle"></i>
+          <span>Place Order</span>
+        </button>
+      </div>
+    </form>
+
+    <div id="orderSuccess" class="hidden mt-8 p-6 bg-green-100 border border-green-400 rounded text-green-700 text-center select-none" role="alert" aria-live="polite">
+      <i class="fas fa-check-circle mr-2"></i> Thank you! Your order has been placed successfully.
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-4 mt-auto">
+    <p class="text-center text-gray-600 text-sm select-none">
+      © 2025 HealthMate. All rights reserved. | Designed with
+      <span aria-label="love" role="img">❤️</span> for your health.
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuBtn.addEventListener('click', () => {
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+        if (expanded) {
+          mobileMenu.classList.add('hidden');
+        } else {
+          mobileMenu.classList.remove('hidden');
+        }
+      });
+
+      const checkoutForm = document.getElementById('checkoutForm');
+      const orderSummary = document.getElementById('orderSummary');
+      const orderTotalEl = document.getElementById('orderTotal');
+      const orderSuccess = document.getElementById('orderSuccess');
+
+      const cardPaymentFields = document.getElementById('cardPaymentFields');
+      const upiPaymentField = document.getElementById('upiPaymentField');
+      const cashInfo = document.getElementById('cashInfo');
+
+      // Payment gateway links
+      const payWithGooglePay = document.getElementById('payWithGooglePay');
+      const payWithPhonePe = document.getElementById('payWithPhonePe');
+      const payWithPaytm = document.getElementById('payWithPaytm');
+
+      function formatPrice(price) {
+        return price.toFixed(2);
+      }
+
+      function renderOrderSummary() {
+        let cart = JSON.parse(localStorage.getItem('pharmacyCart') || '[]');
+        orderSummary.innerHTML = '';
+
+        if (cart.length === 0) {
+          orderSummary.innerHTML = '<p class="text-center text-gray-500 select-none">Your cart is empty.</p>';
+          orderTotalEl.textContent = '₹0.00';
+          return false;
+        }
+
+        let total = 0;
+
+        cart.forEach(item => {
+          const subtotal = item.price * item.quantity;
+          total += subtotal;
+
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'flex justify-between mb-2';
+
+          const nameQty = document.createElement('span');
+          nameQty.className = 'text-gray-800';
+          nameQty.textContent = `${item.name} × ${item.quantity}`;
+
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'font-semibold text-gray-900';
+          priceSpan.textContent = `₹${formatPrice(subtotal)}`;
+
+          itemDiv.appendChild(nameQty);
+          itemDiv.appendChild(priceSpan);
+
+          orderSummary.appendChild(itemDiv);
+        });
+
+        orderTotalEl.textContent = `₹${formatPrice(total)}`;
+        return true;
+      }
+
+      function validateField(field, errorId, validatorFn, errorMsg) {
+        const errorEl = document.getElementById(errorId);
+        if (!validatorFn(field.value.trim())) {
+          errorEl.textContent = errorMsg;
+          errorEl.classList.remove('hidden');
+          field.setAttribute('aria-invalid', 'true');
+          return false;
+        } else {
+          errorEl.classList.add('hidden');
+          field.removeAttribute('aria-invalid');
+          return true;
+        }
+      }
+
+      function validateForm() {
+        let valid = true;
+
+        valid &= validateField(
+          checkoutForm.fullName,
+          'fullNameError',
+          val => val.length > 0,
+          'Please enter your full name.'
+        );
+
+        valid &= validateField(
+          checkoutForm.email,
+          'emailError',
+          val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
+          'Please enter a valid email address.'
+        );
+
+        valid &= validateField(
+          checkoutForm.address,
+          'addressError',
+          val => val.length > 0,
+          'Please enter your shipping address.'
+        );
+
+        valid &= validateField(
+          checkoutForm.city,
+          'cityError',
+          val => val.length > 0,
+          'Please enter your city.'
+        );
+
+        valid &= validateField(
+          checkoutForm.state,
+          'stateError',
+          val => val.length > 0,
+          'Please enter your state or province.'
+        );
+
+        valid &= validateField(
+          checkoutForm.zip,
+          'zipError',
+          val => /^[a-zA-Z0-9\s-]{3,10}$/.test(val),
+          'Please enter a valid ZIP or postal code.'
+        );
+
+        valid &= validateField(
+          checkoutForm.phone,
+          'phoneError',
+          val => /^\+?[0-9\s\-]{7,15}$/.test(val),
+          'Please enter a valid phone number.'
+        );
+
+        const paymentMethod = checkoutForm.paymentMethod.value;
+        const paymentMethodError = document.getElementById('paymentMethodError');
+        if (!paymentMethod) {
+          paymentMethodError.classList.remove('hidden');
+          valid = false;
+        } else {
+          paymentMethodError.classList.add('hidden');
+        }
+
+        if (paymentMethod === 'card') {
+          valid &= validateField(
+            checkoutForm.cardName,
+            'cardNameError',
+            val => val.length > 0,
+            'Please enter the name on your card.'
+          );
+
+          valid &= validateField(
+            checkoutForm.cardNumber,
+            'cardNumberError',
+            val => /^\d{13,19}$/.test(val.replace(/\s+/g, '')),
+            'Please enter a valid card number (13-19 digits).'
+          );
+
+          valid &= validateField(
+            checkoutForm.expiryDate,
+            'expiryDateError',
+            val => /^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(val),
+            'Please enter a valid expiry date (MM/YY).'
+          );
+
+          valid &= validateField(
+            checkoutForm.cvv,
+            'cvvError',
+            val => /^\d{3,4}$/.test(val),
+            'Please enter a valid 3 or 4 digit CVV.'
+          );
+        } else if (paymentMethod === 'upi') {
+          valid &= validateField(
+            checkoutForm.upiId,
+            'upiIdError',
+            val => /^[\w.-]+@[\w.-]+$/.test(val),
+            'Please enter a valid UPI ID.'
+          );
+        }
+
+        return Boolean(valid);
+      }
+
+      function togglePaymentFields() {
+        const paymentMethod = checkoutForm.paymentMethod.value;
+        if (paymentMethod === 'card') {
+          cardPaymentFields.classList.remove('hidden');
+          upiPaymentField.classList.add('hidden');
+          cashInfo.classList.add('hidden');
+          // Set required attributes
+          checkoutForm.cardName.required = true;
+          checkoutForm.cardNumber.required = true;
+          checkoutForm.expiryDate.required = true;
+          checkoutForm.cvv.required = true;
+          checkoutForm.upiId.required = false;
+        } else if (paymentMethod === 'upi') {
+          cardPaymentFields.classList.add('hidden');
+          upiPaymentField.classList.remove('hidden');
+          cashInfo.classList.add('hidden');
+          // Set required attributes
+          checkoutForm.cardName.required = false;
+          checkoutForm.cardNumber.required = false;
+          checkoutForm.expiryDate.required = false;
+          checkoutForm.cvv.required = false;
+          checkoutForm.upiId.required = true;
+        } else if (paymentMethod === 'cash') {
+          cardPaymentFields.classList.add('hidden');
+          upiPaymentField.classList.add('hidden');
+          cashInfo.classList.remove('hidden');
+          // Set required attributes
+          checkoutForm.cardName.required = false;
+          checkoutForm.cardNumber.required = false;
+          checkoutForm.expiryDate.required = false;
+          checkoutForm.cvv.required = false;
+          checkoutForm.upiId.required = false;
+        }
+      }
+
+      // Listen for payment method changes
+      checkoutForm.paymentMethod.forEach(radio => {
+        radio.addEventListener('change', togglePaymentFields);
+      });
+
+      // Format card number input with spaces every 4 digits
+      const cardNumberInput = checkoutForm.cardNumber;
+      cardNumberInput.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\D/g, '').substring(0,19);
+        let formatted = '';
+        for (let i = 0; i < val.length; i++) {
+          if (i > 0 && i % 4 === 0) formatted += ' ';
+          formatted += val[i];
+        }
+        e.target.value = formatted;
+      });
+
+      // Payment gateway links - open UPI apps with prefilled UPI ID and amount
+      function updateUPIPaymentLinks() {
+        const upiId = checkoutForm.upiId.value.trim();
+        const totalText = orderTotalEl.textContent || '₹0.00';
+        const amount = totalText.replace(/[^\d.]/g, '') || '0.00';
+
+        // Encode UPI ID and amount for URLs
+        const encodedUpiId = encodeURIComponent(upiId);
+        const encodedAmount = encodeURIComponent(amount);
+
+        // UPI payment URLs (these open the respective apps if installed)
+        // Format: upi://pay?pa=upiId&pn=PayeeName&am=amount&cu=INR
+        // For demo, PayeeName is fixed as HealthMate Pharmacy
+
+        if (upiId) {
+          payWithGooglePay.href = `upi://pay?pa=${encodedUpiId}&pn=HealthMate%20Pharmacy&am=${encodedAmount}&cu=INR`;
+          payWithPhonePe.href = `https://phonepe.com/upipay?pa=${encodedUpiId}&pn=HealthMate%20Pharmacy&am=${encodedAmount}&cu=INR`;
+          payWithPaytm.href = `https://paytm.com/upi/${encodedUpiId}`;
+        } else {
+          payWithGooglePay.href = '#';
+          payWithPhonePe.href = '#';
+          payWithPaytm.href = '#';
+        }
+      }
+
+      checkoutForm.upiId.addEventListener('input', updateUPIPaymentLinks);
+
+      renderOrderSummary();
+
+      togglePaymentFields();
+
+      checkoutForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!renderOrderSummary()) {
+          alert('Your cart is empty. Please add items before checking out.');
+          return;
+        }
+        if (validateForm()) {
+          // Simulate order processing
+          localStorage.removeItem('pharmacyCart');
+          checkoutForm.classList.add('hidden');
+          orderSuccess.classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          // Focus first invalid field
+          const firstInvalid = checkoutForm.querySelector('[aria-invalid="true"]');
+          if (firstInvalid) firstInvalid.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   HealthMate | Emergency Mode
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-red-600 text-white sticky top-0 z-30 shadow-md">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-center">
+    <h1 class="text-3xl font-bold select-none">
+     Emergency Mode Activated
+    </h1>
+   </div>
+  </header>
+  <!-- Main Content -->
+  <main class="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+   <!-- Quick Actions -->
+   <section aria-label="Quick emergency actions" class="space-y-4">
+    <h2 class="text-2xl font-semibold text-red-700 select-none">
+     Quick Actions
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+     <button aria-label="Call Ambulance" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-red-400" onclick="window.location.href='tel:102'">
+      <i class="fas fa-ambulance fa-lg"></i>
+      <span class="text-lg">
+       Call Ambulance (102)
+      </span>
+     </button>
+     <button aria-label="Call Police" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-blue-400" onclick="window.location.href='tel:100'">
+      <i class="fas fa-shield-alt fa-lg"></i>
+      <span class="text-lg">
+       Call Police (100)
+      </span>
+     </button>
+     <button aria-label="Call Fire Brigade" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-yellow-400" onclick="window.location.href='tel:101'">
+      <i class="fas fa-fire-extinguisher fa-lg"></i>
+      <span class="text-lg">
+       Call Fire Brigade (101)
+      </span>
+     </button>
+    </div>
+   </section>
+   <!-- Family Contacts -->
+   <section aria-label="Family emergency contacts" class="space-y-4">
+    <h2 class="text-2xl font-semibold text-red-700 select-none">
+     Family Contacts
+    </h2>
+    <form id="contactForm" class="bg-white rounded-lg shadow-md p-4 space-y-4">
+     <div>
+      <label for="contactName" class="block text-gray-700 font-semibold mb-1">Name</label>
+      <input type="text" id="contactName" name="contactName" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+     </div>
+     <div>
+      <label for="contactPhone" class="block text-gray-700 font-semibold mb-1">Phone Number</label>
+      <input type="tel" id="contactPhone" name="contactPhone" pattern="^\+?\d{7,15}$" placeholder="+919876543210" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+     </div>
+     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+      Add Contact
+     </button>
+    </form>
+    <ul id="contactsList" class="space-y-3 mt-6">
+     <li class="text-gray-600 select-none">No contacts added yet.</li>
+    </ul>
+   </section>
+   <!-- Share Location -->
+   <section aria-label="Share current location" class="space-y-4">
+    <h2 class="text-2xl font-semibold text-red-700 select-none">
+     Share Location
+    </h2>
+    <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+     <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-blue-400" id="shareLocationBtn" type="button">
+      <i class="fas fa-location-arrow fa-lg"></i>
+      <span>
+       Share GPS Location
+      </span>
+     </button>
+     <a class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-green-400 pointer-events-none opacity-50" href="#" id="whatsappShareLink" rel="noopener noreferrer" target="_blank">
+      <i class="fab fa-whatsapp fa-lg"></i>
+      <span>
+       Share via WhatsApp
+      </span>
+     </a>
+    </div>
+    <p class="text-gray-700 mt-2 select-text" id="locationStatus"></p>
+   </section>
+   <!-- Emergency Status Summary -->
+   <section aria-label="Emergency status summary" class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold text-red-700 mb-4 select-none">
+     Emergency Status Summary
+    </h2>
+    <p class="text-gray-800 mb-2 select-text" id="sosTime">
+     You triggered SOS at:
+     <span class="font-semibold" id="sosTimeValue">
+      Not triggered yet
+     </span>
+    </p>
+    <p class="text-gray-700 select-text" id="locationSharedWith">
+     Location shared with:
+     <span class="font-semibold" id="sharedContacts">
+      None
+     </span>
+    </p>
+   </section>
+   <!-- Other Help -->
+   <section aria-label="Other help options" class="space-y-4">
+    <h2 class="text-2xl font-semibold text-red-700 select-none">
+     Other Help
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+     <button aria-label="Open AI Chatbot Calm Mode" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-indigo-400" id="aiChatBtn">
+      <i class="fas fa-robot fa-lg"></i>
+      <span>
+       AI Chatbot (Calm Mode)
+      </span>
+     </button>
+     <button aria-label="Start live video call with doctor" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-purple-400" id="videoCallBtn" href="video-call.html">
+      <i class="fas fa-video fa-lg"></i>
+      <span>
+       Live Video Call
+      </span>
+     </button>
+     <button aria-label="Show ambulance ETA" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 rounded-lg shadow-md flex items-center justify-center space-x-3 focus:outline-none focus:ring-4 focus:ring-teal-400" id="ambulanceEtaBtn">
+      <i class="fas fa-truck-medical fa-lg"></i>
+      <span>
+       Ambulance ETA
+      </span>
+     </button>
+    </div>
+    <p class="mt-3 text-gray-700 font-semibold select-text" id="etaDisplay"></p>
+   </section>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-red-600 text-white py-4 text-center select-none">
+   We're alerting nearby services
+  </footer>
+  <!-- Floating AI Chat Button -->
+  <a aria-label="Chat with AI expert" class="ai-btn fixed bottom-20 right-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg flex items-center space-x-2 px-4 py-3 z-50 focus:outline-none focus:ring-4 focus:ring-blue-400" href="ai-chatbot.html">
+   <span class="hidden sm:inline">
+    Chat with AI
+   </span>
+  </a>
+  <!--Back Button-->
+  <a aria-label="Back To Dashboard" class="back-btn fixed bottom-20 left-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg flex items-center space-x-2 px-4 py-3 z-50 focus:outline-none focus:ring-4 focus:ring-blue-400" href="dashboard.html">
+    <span class="hidden sm:inline">
+     <-- Back To Dashboard
+    </span>
+   </a>
+  <script>
+   (function() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if(mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+          mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+          if (expanded) {
+            mobileMenu.classList.add('hidden');
+          } else {
+            mobileMenu.classList.remove('hidden');
+          }
+        });
+      }
+
+      // Elements
+      const shareLocationBtn = document.getElementById('shareLocationBtn');
+      const whatsappShareLink = document.getElementById('whatsappShareLink');
+      const locationStatus = document.getElementById('locationStatus');
+      const sosTimeValue = document.getElementById('sosTimeValue');
+      const sharedContacts = document.getElementById('sharedContacts');
+      const aiChatBtn = document.getElementById('aiChatBtn');
+      const videoCallBtn = document.getElementById('videoCallBtn');
+      const ambulanceEtaBtn = document.getElementById('ambulanceEtaBtn');
+      const etaDisplay = document.getElementById('etaDisplay');
+
+      const contactForm = document.getElementById('contactForm');
+      const contactsList = document.getElementById('contactsList');
+
+      // Store SOS trigger time and shared contacts
+      let sosTriggeredAt = null;
+      let locationShared = false;
+
+      // Contacts array stored in localStorage
+      let contacts = JSON.parse(localStorage.getItem('emergencyContacts') || '[]');
+
+      function updateStatus() {
+        if(sosTriggeredAt) {
+          sosTimeValue.textContent = sosTriggeredAt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+          if(locationShared && contacts.length > 0) {
+            sharedContacts.textContent = contacts.map(c => c.name).join(', ');
+          } else {
+            sharedContacts.textContent = 'None';
+          }
+        } else {
+          sosTimeValue.textContent = 'Not triggered yet';
+          sharedContacts.textContent = 'None';
+        }
+      }
+
+      function renderContacts() {
+        contactsList.innerHTML = '';
+        if(contacts.length === 0) {
+          const li = document.createElement('li');
+          li.className = 'text-gray-600 select-none';
+          li.textContent = 'No contacts added yet.';
+          contactsList.appendChild(li);
+          return;
+        }
+        contacts.forEach((contact, index) => {
+          const li = document.createElement('li');
+          li.className = 'bg-white rounded-lg shadow p-4 flex items-center justify-between';
+
+          const infoDiv = document.createElement('div');
+          infoDiv.className = 'flex items-center space-x-4';
+
+          const iconDiv = document.createElement('div');
+          iconDiv.className = 'w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-lg select-none';
+          iconDiv.textContent = contact.name.charAt(0).toUpperCase();
+
+          const textDiv = document.createElement('div');
+          const nameP = document.createElement('p');
+          nameP.className = 'font-semibold text-gray-800';
+          nameP.textContent = contact.name;
+          const phoneP = document.createElement('p');
+          phoneP.className = 'text-gray-600 text-sm';
+          phoneP.textContent = contact.phone;
+
+          textDiv.appendChild(nameP);
+          textDiv.appendChild(phoneP);
+
+          infoDiv.appendChild(iconDiv);
+          infoDiv.appendChild(textDiv);
+
+          const actionsDiv = document.createElement('div');
+          actionsDiv.className = 'flex space-x-3';
+
+          const callLink = document.createElement('a');
+          callLink.href = `tel:${contact.phone}`;
+          callLink.setAttribute('aria-label', `Call ${contact.name}`);
+          callLink.className = 'text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-2';
+          callLink.innerHTML = '<i class="fas fa-phone fa-lg"></i>';
+
+          const smsLink = document.createElement('a');
+          smsLink.href = `sms:${contact.phone}`;
+          smsLink.setAttribute('aria-label', `Send SMS to ${contact.name}`);
+          smsLink.className = 'text-green-600 hover:text-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 rounded p-2';
+          smsLink.innerHTML = '<i class="fas fa-sms fa-lg"></i>';
+
+          const removeBtn = document.createElement('button');
+          removeBtn.type = 'button';
+          removeBtn.setAttribute('aria-label', `Remove ${contact.name}`);
+          removeBtn.className = 'text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 rounded p-2';
+          removeBtn.innerHTML = '<i class="fas fa-trash-alt fa-lg"></i>';
+          removeBtn.addEventListener('click', () => {
+            contacts.splice(index, 1);
+            localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+            renderContacts();
+            updateStatus();
+          });
+
+          actionsDiv.appendChild(callLink);
+          actionsDiv.appendChild(smsLink);
+          actionsDiv.appendChild(removeBtn);
+
+          li.appendChild(infoDiv);
+          li.appendChild(actionsDiv);
+
+          contactsList.appendChild(li);
+        });
+      }
+
+      function shareLocation() {
+        if (!navigator.geolocation) {
+          locationStatus.textContent = 'Geolocation is not supported by your browser.';
+          return;
+        }
+        if(contacts.length === 0) {
+          alert('Please add at least one emergency contact before sharing location.');
+          return;
+        }
+        locationStatus.textContent = 'Locating…';
+        navigator.geolocation.getCurrentPosition(position => {
+          const { latitude, longitude } = position.coords;
+          locationStatus.textContent = `Location: Lat ${latitude.toFixed(5)}, Lon ${longitude.toFixed(5)}`;
+          sosTriggeredAt = new Date();
+          locationShared = true;
+          updateStatus();
+          // Prepare WhatsApp share link with location and message
+          const contactNames = contacts.map(c => c.name).join(', ');
+          const message = encodeURIComponent(`Emergency! I triggered SOS at ${sosTriggeredAt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}. My location: https://maps.google.com/?q=${latitude},${longitude}\nLocation shared with: ${contactNames}`);
+          whatsappShareLink.href = `https://wa.me/?text=${message}`;
+          whatsappShareLink.classList.remove('pointer-events-none', 'opacity-50');
+          whatsappShareLink.setAttribute('aria-disabled', 'false');
+        }, error => {
+          locationStatus.textContent = 'Unable to retrieve your location.';
+        }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
+      }
+
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const name = contactForm.contactName.value.trim();
+        const phone = contactForm.contactPhone.value.trim();
+        if(!name || !phone) return;
+        // Validate phone pattern (basic)
+        const phonePattern = /^\+?\d{7,15}$/;
+        if(!phonePattern.test(phone)) {
+          alert('Please enter a valid phone number with country code.');
+          return;
+        }
+        contacts.push({name, phone});
+        localStorage.setItem('emergencyContacts', JSON.stringify(contacts));
+        contactForm.reset();
+        renderContacts();
+        updateStatus();
+      });
+
+      shareLocationBtn.addEventListener('click', shareLocation);
+
+      // AI Chatbot Calm Mode simulation
+      aiChatBtn.addEventListener('click', () => {
+        alert('AI Chatbot (Calm Mode) activated. Asking if you are okay and guiding you...');
+      });
+
+      // Live video call simulation
+      videoCallBtn.addEventListener('click', () => {
+        alert('Starting live video call with doctor/responder...');
+      });
+
+      // Ambulance ETA simulation
+      ambulanceEtaBtn.addEventListener('click', () => {
+        // Simulate ETA between 5 to 15 minutes
+        const etaMinutes = Math.floor(Math.random() * 11) + 5;
+        etaDisplay.textContent = `Ambulance ETA: approximately ${etaMinutes} minute${etaMinutes > 1 ? 's' : ''}`;
+      });
+
+      renderContacts();
+      updateStatus();
+  })();
+  </script>
+ </body>
+</html>

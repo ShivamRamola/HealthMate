@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile | HealthMate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    .navbar {
+      background-color: #1b5fd9;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .navbar .logo img {
+      height: 30px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #dcdcdc;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #1b5fd9;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 150px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeSlide 0.3s ease forwards;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    @keyframes fadeSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      text-align: left;
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-container h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #1b5fd9;
+      text-align: center;
+    }
+
+    .profile-container p {
+      margin: 0.6rem 0;
+      font-size: 1.1rem;
+    }
+
+    .profile-container p span {
+      font-weight: 600;
+      color: #222;
+      margin-right: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 60px;
+      color: #555;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      HealthMate
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="shop.html">Shop</a>
+      <a href="profile.html">Profile</a>
+      <a href="settings.html">Settings</a>
+      <a href="#">Logout</a>
+    </nav>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-container">
+    <h2>User Profile</h2>
+    <p><span>Name:</span> <span id="userName">Loading...</span></p>
+    <p><span>Email:</span> <span id="userEmail">Loading...</span></p>
+    <p><span>UID:</span> <span id="userUID">Loading...</span></p>
+  </div>
+
+  <footer>
+    <p>© 2025 HealthMate. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase + JS -->
+  <script type="module">
+    // Your Firebase logic (assuming initialized elsewhere)
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("userName").textContent = user.displayName || "N/A";
+        document.getElementById("userEmail").textContent = user.email;
+        document.getElementById("userUID").textContent = user.uid;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+  </script>
+
+</body>
+</html>

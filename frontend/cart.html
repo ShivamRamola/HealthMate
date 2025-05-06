@@ -1,0 +1,321 @@
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   HealthMate | Pharmacy Cart
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-30">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <a class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" href="dashboard.html">
+     <img alt="logo" class="w-10 h-10 object-contain" height="60" src="assets/logo.png" width="60"/>
+     <span class="text-2xl font-semibold text-blue-600 select-none">
+      HealthMate
+     </span>
+    </a>
+    <nav aria-label="Primary navigation" class="hidden md:flex space-x-6 font-medium text-gray-700">
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="dashboard.html">
+      Dashboard
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="profile.html">
+      Profile
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="appointments.html">
+      Appointments
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="emergency.html">
+      Emergency
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="ai-chatbot.html">
+      AI Chat
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="pharmacy.html">
+      Pharmacy
+     </a>
+     <a aria-current="page" class="text-blue-600 border-b-2 border-blue-600 pb-1" href="cart.html">
+      Cart
+     </a>
+    </nav>
+    <div class="hidden md:block">
+     <a class="text-gray-700 hover:text-blue-600 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-3 py-1" href="dashboard.html">
+      Logout
+     </a>
+    </div>
+    <!-- Mobile menu button -->
+    <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle menu" class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" id="mobileMenuBtn">
+     <i class="fas fa-bars fa-lg">
+     </i>
+    </button>
+   </div>
+   <!-- Mobile menu -->
+   <nav aria-label="Mobile navigation" class="md:hidden hidden bg-white border-t border-gray-200" id="mobileMenu">
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="dashboard.html">
+     Dashboard
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="profile.html">
+     Profile
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="appointments.html">
+     Appointments
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="emergency.html">
+     Emergency
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="ai-chatbot.html">
+     AI Chat
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="pharmacy.html">
+     Pharmacy
+    </a>
+    <a aria-current="page" class="block px-4 py-3 text-blue-600 font-semibold border-l-4 border-blue-600" href="cart.html">
+     Cart
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:text-blue-600 font-semibold border-t border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" href="dashboard.html">
+     Logout
+    </a>
+   </nav>
+  </header>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8 mb-12" role="main">
+   <h1 class="text-3xl font-semibold text-blue-700 mb-6 select-none">
+    Your Cart
+   </h1>
+   <section aria-label="Cart items" class="mb-8 overflow-x-auto">
+    <table class="min-w-full border border-gray-200 rounded-lg">
+     <thead class="bg-blue-600 text-white">
+      <tr>
+       <th class="text-left px-4 py-3 text-sm font-semibold uppercase tracking-wide" scope="col">
+        Product
+       </th>
+       <th class="text-left px-4 py-3 text-sm font-semibold uppercase tracking-wide" scope="col">
+        Brand
+       </th>
+       <th class="text-left px-4 py-3 text-sm font-semibold uppercase tracking-wide" scope="col">
+        Category
+       </th>
+       <th class="text-left px-4 py-3 text-sm font-semibold uppercase tracking-wide" scope="col">
+        Price (₹)
+       </th>
+       <th class="text-left px-4 py-3 text-sm font-semibold uppercase tracking-wide" scope="col">
+        Quantity
+       </th>
+       <th class="text-left px-4 py-3 text-sm font-semibold uppercase tracking-wide" scope="col">
+        Subtotal (₹)
+       </th>
+       <th class="px-4 py-3" scope="col">
+       </th>
+      </tr>
+     </thead>
+     <tbody class="divide-y divide-gray-200" id="cartItems">
+      <!-- Cart items injected here -->
+     </tbody>
+    </table>
+    <p class="text-center text-gray-500 mt-6 hidden select-none" id="emptyCartMsg">
+     Your cart is empty.
+    </p>
+   </section>
+   <section aria-label="Cart summary" class="flex flex-col md:flex-row md:justify-end md:items-center space-y-4 md:space-y-0 md:space-x-8">
+    <div class="text-gray-700 text-lg font-semibold select-none">
+     Total:
+     <span class="text-blue-600 text-2xl" id="cartTotal">
+      ₹0.00
+     </span>
+    </div>
+    <button aria-label="Proceed to checkout" class="bg-blue-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" id="checkoutBtn" type="button">
+     Proceed to Checkout
+    </button>
+   </section>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-4 mt-auto">
+   <p class="text-center text-gray-600 text-sm select-none">
+    © 2025 HealthMate. All rights reserved. | Designed with
+    <span aria-label="love" role="img">
+     ❤️
+    </span>
+    for your health.
+   </p>
+  </footer>
+  <script>
+   (function () {
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+    mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+    mobileMenu.classList.toggle('hidden', expanded);
+  });
+
+  const cartItemsContainer = document.getElementById('cartItems');
+  const cartTotalEl = document.getElementById('cartTotal');
+  const emptyCartMsg = document.getElementById('emptyCartMsg');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  function formatPrice(price) {
+    return price.toFixed(2);
+  }
+
+  function renderCart() {
+    let cart = JSON.parse(localStorage.getItem('pharmacyCart') || '[]');
+    cartItemsContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+      emptyCartMsg.classList.remove('hidden');
+      checkoutBtn.disabled = true;
+      cartTotalEl.textContent = '₹0.00';
+      return;
+    } else {
+      emptyCartMsg.classList.add('hidden');
+      checkoutBtn.disabled = false;
+    }
+
+    let total = 0;
+
+    cart.forEach(item => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-gray-50 focus-within:bg-gray-100';
+
+      const productTd = document.createElement('td');
+      productTd.className = 'px-4 py-3 flex items-center space-x-4';
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.alt = item.alt || item.name;
+      img.className = 'w-16 h-16 object-contain rounded';
+      img.width = 64;
+      img.height = 64;
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'text-gray-900 font-semibold';
+      nameDiv.textContent = item.name;
+      productTd.appendChild(img);
+      productTd.appendChild(nameDiv);
+
+      const brandTd = document.createElement('td');
+      brandTd.className = 'px-4 py-3 text-gray-700';
+      brandTd.textContent = item.brand;
+
+      const categoryTd = document.createElement('td');
+      categoryTd.className = 'px-4 py-3 text-gray-700';
+      categoryTd.textContent = item.category;
+
+      const priceTd = document.createElement('td');
+      priceTd.className = 'px-4 py-3 text-gray-900 font-semibold';
+      priceTd.textContent = formatPrice(item.price);
+
+      const quantityTd = document.createElement('td');
+      quantityTd.className = 'px-4 py-3';
+      const quantityWrapper = document.createElement('div');
+      quantityWrapper.className = 'flex items-center space-x-2 max-w-[120px]';
+
+      const decBtn = document.createElement('button');
+      decBtn.type = 'button';
+      decBtn.className = 'text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-1';
+      decBtn.setAttribute('aria-label', `Decrease quantity of ${item.name}`);
+      decBtn.innerHTML = '<i class="fas fa-minus"></i>';
+      decBtn.addEventListener('click', () => {
+        if (item.quantity > 1) {
+          item.quantity--;
+          updateCartItem(item.id, item.quantity);
+        }
+      });
+
+      const quantityInput = document.createElement('input');
+      quantityInput.type = 'number';
+      quantityInput.min = '1';
+      quantityInput.value = item.quantity;
+      quantityInput.className = 'w-12 text-center border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500';
+      quantityInput.setAttribute('aria-label', `Quantity of ${item.name}`);
+      quantityInput.addEventListener('change', (e) => {
+        let val = parseInt(e.target.value);
+        if (isNaN(val) || val < 1) val = 1;
+        item.quantity = val;
+        updateCartItem(item.id, val);
+      });
+
+      const incBtn = document.createElement('button');
+      incBtn.type = 'button';
+      incBtn.className = 'text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded p-1';
+      incBtn.setAttribute('aria-label', `Increase quantity of ${item.name}`);
+      incBtn.innerHTML = '<i class="fas fa-plus"></i>';
+      incBtn.addEventListener('click', () => {
+        item.quantity++;
+        updateCartItem(item.id, item.quantity);
+      });
+
+      quantityWrapper.appendChild(decBtn);
+      quantityWrapper.appendChild(quantityInput);
+      quantityWrapper.appendChild(incBtn);
+      quantityTd.appendChild(quantityWrapper);
+
+      const subtotalTd = document.createElement('td');
+      subtotalTd.className = 'px-4 py-3 text-gray-900 font-semibold';
+      subtotalTd.textContent = formatPrice(subtotal);
+
+      const removeTd = document.createElement('td');
+      removeTd.className = 'px-4 py-3 text-right';
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-600 rounded p-1';
+      removeBtn.setAttribute('aria-label', `Remove ${item.name} from cart`);
+      removeBtn.innerHTML = '<i class="fas fa-trash-alt fa-lg"></i>';
+      removeBtn.addEventListener('click', () => {
+        removeCartItem(item.id);
+      });
+      removeTd.appendChild(removeBtn);
+
+      tr.appendChild(productTd);
+      tr.appendChild(brandTd);
+      tr.appendChild(categoryTd);
+      tr.appendChild(priceTd);
+      tr.appendChild(quantityTd);
+      tr.appendChild(subtotalTd);
+      tr.appendChild(removeTd);
+
+      cartItemsContainer.appendChild(tr);
+    });
+
+    cartTotalEl.textContent = `₹${formatPrice(total)}`;
+  }
+
+  function updateCartItem(id, quantity) {
+    let cart = JSON.parse(localStorage.getItem('pharmacyCart') || '[]');
+    const index = cart.findIndex(item => item.id === id);
+    if (index !== -1) {
+      cart[index].quantity = quantity;
+      localStorage.setItem('pharmacyCart', JSON.stringify(cart));
+      renderCart();
+    }
+  }
+
+  function removeCartItem(id) {
+    let cart = JSON.parse(localStorage.getItem('pharmacyCart') || '[]');
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem('pharmacyCart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  checkoutBtn.addEventListener('click', () => {
+    if (!checkoutBtn.disabled) {
+      window.location.href = 'checkout.html';
+    }
+  });
+
+  renderCart();
+})();
+  </script>
+ </body>
+</html>

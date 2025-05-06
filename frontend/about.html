@@ -1,0 +1,147 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   About Us - HealthMate
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <header class="bg-white shadow-md sticky top-0 z-10">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <div class="flex items-center space-x-3">
+     <img alt="logo" class="h-10 w-10 rounded-full" height="80" src="assets/logo.png" width="80"/>
+     <h1 class="text-2xl font-semibold">
+      HealthMate
+     </h1>
+    </div>
+    <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
+     <a class="hover:text-green-600 transition" href="dashboard.html">
+      Home
+     </a>
+     <a aria-current="page" class="text-green-600 border-b-2 border-green-600 pb-1" href="#">
+      About Us
+     </a>
+     <a class="hover:text-green-600 transition" href="pharmacy.html">
+      Pharmacy
+     </a>
+     <a class="hover:text-green-600 transition" href="contact.html">
+      Contact
+     </a>
+    </nav>
+    <button aria-label="Open menu" class="md:hidden text-gray-700 hover:text-green-600 focus:outline-none" id="menu-btn">
+     <i class="fas fa-bars fa-lg">
+     </i>
+    </button>
+   </div>
+   <nav class="md:hidden bg-white border-t border-gray-200 text-gray-700 space-y-2 p-4 hidden" id="mobile-menu">
+    <a class="block hover:text-green-600 transition" href="dashboard.html">
+     Home
+    </a>
+    <a aria-current="page" class="block text-green-600 font-semibold" href="#">
+     About Us
+    </a>
+    <a class="block hover:text-green-600 transition" href="pharmacy.html">
+     Pharmacy
+    </a>
+    <a class="block hover:text-green-600 transition" href="contact.html">
+     Contact
+    </a>
+   </nav>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+   <!-- Section 1: Our Mission -->
+   <section class="mb-16 text-center max-w-3xl mx-auto">
+    <h2 class="text-4xl font-extrabold text-green-600 mb-4">
+     Our Mission
+    </h2>
+    <p class="text-lg text-gray-700 leading-relaxed">
+    At HealthMate, our mission is to empower individuals to take control of their health with ease and confidence. We believe that healthcare should be seamless, accessible, and personalized for everyone. By leveraging the latest technology, we aim to bring healthcare into the digital age, providing users with tools to manage their well-being, connect with healthcare professionals, and stay informed about their health status—anytime, anywhere.
+    </p>
+   </section>
+   <!-- Section 2: Our Story -->
+   <section class="mb-16 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-semibold text-gray-900 mb-6 text-center">
+     Our Story
+    </h2>
+    <div class="space-y-6 text-gray-700 text-base leading-relaxed">
+     <p>
+      HealthMate was born out of a vision to revolutionize the way we approach health and wellness. Founded by a team of passionate individuals who believe that healthcare should be simple, accessible, and personalized for everyone, HealthMate strives to bridge the gap between traditional healthcare and modern technology.
+      Our journey began with a single question: How can we make healthcare more efficient and intuitive for users? With years of experience in health tech, we set out to create an app that empowers individuals to take control of their health, from daily wellness tracking to telemedicine services with trusted professionals.
+      <p> 
+      </p>
+      We’re more than just a health app – we’re a companion on your wellness journey. Whether you’re monitoring vital health metrics, consulting with doctors through video calls, or setting fitness goals, HealthMate is here to support you every step of the way.
+      Our commitment to making healthcare accessible, reliable, and convenient drives everything we do. With HealthMate, we envision a world where your health is always in your hands, wherever you go.
+     </p>
+    </div>
+   </section>
+   <!-- Section 3: Meet the Team -->
+   <section class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-semibold text-gray-900 mb-10 text-center">
+     Meet the Team
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+     <!-- Team Member 1 -->
+     <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
+      <img alt="Portrait of Dr. Sarah Johnson, female doctor with short brown hair wearing white coat and stethoscope, smiling" class="w-32 h-32 rounded-full object-cover mb-4" height="128" src="assets/rayyan.jpg" width="128"/>
+      <h3 class="text-xl font-semibold text-gray-900">
+       Rayyan
+      </h3>
+      <p class="text-green-600 font-medium mb-2">
+       AI/ML
+      </p>
+      <p class="text-gray-600 text-sm">
+      The brilliant mind behind the AI powering HealthMate, transforming healthcare with cutting-edge technology and innovation.
+      </p>
+     </div>
+     <!-- Team Member 2 -->
+     <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
+      <img alt="Portrait of Michael Lee, male software engineer with black hair and glasses, wearing casual shirt, smiling" class="w-32 h-32 rounded-full object-cover mb-4" height="128" src="assets/Shivam Ramola.jpeg" width="128"/>
+      <h3 class="text-xl font-semibold text-gray-900">
+       Shivam
+      </h3>
+      <p class="text-green-600 font-medium mb-2">
+       Full Stack Dev & UI/UX
+      </p>
+      <p class="text-gray-600 text-sm">
+        An expert full-stack developer dedicated to crafting seamless and innovative experiences for HealthMate users, ensuring both frontend and backend work harmoniously.
+      </p>
+     </div>
+     <!-- Team Member 3 -->
+     <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
+      <img alt="Portrait of Emily Davis, female UX/UI designer with curly blonde hair, wearing a blue blouse, smiling" class="w-32 h-32 rounded-full object-cover mb-4" height="128" src="assets/Aditya.jpg" width="128"/>
+      <h3 class="text-xl font-semibold text-gray-900">
+       Aditya
+      </h3>
+      <p class="text-green-600 font-medium mb-2">
+       UX/UI & Firebase
+      </p>
+      <p class="text-gray-600 text-sm">
+        Our UI/UX designer ensures HealthMate's interface is user-friendly and visually engaging, while Firebase provides robust, scalable backend solutions for real-time data and authentication management.
+      </p>
+     </div>
+    </div>
+   </section>
+  </main>
+  <footer class="bg-white border-t border-gray-200 p-6 text-center text-gray-500 text-sm">
+   © 2024 HealthMate. All rights reserved.
+  </footer>
+  <script>
+   // Mobile menu toggle
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  </script>
+ </body>
+</html>

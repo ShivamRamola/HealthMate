@@ -1,0 +1,230 @@
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HealthMate | WebRTC Video Call Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    video {
+      border-radius: 0.5rem;
+      background: black;
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 flex flex-col items-center justify-center min-h-screen p-6 space-y-6">
+  <h1 class="text-3xl font-semibold text-blue-700 select-none">HealthMate WebRTC Video Call Demo</h1>
+  <div class="flex flex-col sm:flex-row gap-6 w-full max-w-4xl justify-center">
+    <div class="flex flex-col items-center w-full sm:w-1/2">
+      <h2 class="text-xl font-semibold mb-2 text-gray-700 select-none">Local Video</h2>
+      <video id="localVideo" autoplay muted playsinline class="shadow-lg"></video>
+    </div>
+    <div class="flex flex-col items-center w-full sm:w-1/2">
+      <h2 class="text-xl font-semibold mb-2 text-gray-700 select-none">Remote Video</h2>
+      <video id="remoteVideo" autoplay playsinline class="shadow-lg"></video>
+    </div>
+  </div>
+  <div class="space-x-4">
+    <button id="startCall" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded focus:outline-none focus:ring-4 focus:ring-blue-400">
+      Start Call
+    </button>
+    <button id="hangupCall" disabled class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded focus:outline-none focus:ring-4 focus:ring-red-400">
+      Hang Up
+    </button>
+  </div>
+  <p class="text-gray-600 max-w-4xl text-center select-none">
+    This demo uses WebRTC peer-to-peer connection with a simple signaling server via WebSocket. For full production use, a signaling server and TURN server are required.
+  </p>
+
+  <script>
+    (function() {
+      const localVideo = document.getElementById('localVideo');
+      const remoteVideo = document.getElementById('remoteVideo');
+      const startCallBtn = document.getElementById('startCall');
+      const hangupCallBtn = document.getElementById('hangupCall');
+
+      let localStream = null;
+      let peerConnection = null;
+      let ws = null;
+      let isCaller = false;
+
+      // Replace with your signaling server URL
+      const SIGNALING_SERVER_URL = 'serve.js';
+
+      // STUN servers for ICE candidates
+      const ICE_SERVERS = [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' }
+      ];
+
+      function log(msg) {
+        console.log('[WebRTC]', msg);
+      }
+
+      // Initialize media stream
+      async function startLocalStream() {
+        try {
+          localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          localVideo.srcObject = localStream;
+          log('Local stream started');
+        } catch (err) {
+          alert('Error accessing camera/microphone: ' + err.message);
+          throw err;
+        }
+      }
+
+      // Create RTCPeerConnection and setup handlers
+      function createPeerConnection() {
+        peerConnection = new RTCPeerConnection({ iceServers: ICE_SERVERS });
+
+        // Add local tracks to peer connection
+        localStream.getTracks().forEach(track => {
+          peerConnection.addTrack(track, localStream);
+        });
+
+        // When remote track arrives, show it in remote video element
+        peerConnection.ontrack = event => {
+          if (remoteVideo.srcObject !== event.streams[0]) {
+            remoteVideo.srcObject = event.streams[0];
+            log('Remote stream received');
+          }
+        };
+
+        // ICE candidate handler
+        peerConnection.onicecandidate = event => {
+          if (event.candidate) {
+            sendMessage({ type: 'candidate', candidate: event.candidate });
+          }
+        };
+
+        peerConnection.onconnectionstatechange = () => {
+          log('Connection state: ' + peerConnection.connectionState);
+          if (peerConnection.connectionState === 'disconnected' || peerConnection.connectionState === 'failed' || peerConnection.connectionState === 'closed') {
+            endCall();
+          }
+        };
+      }
+
+      // WebSocket signaling
+      function connectWebSocket() {
+        ws = new WebSocket(SIGNALING_SERVER_URL);
+
+        ws.onopen = () => {
+          log('Connected to signaling server');
+          // Decide caller or callee based on URL param or prompt
+          // For demo, prompt user:
+          isCaller = confirm('Are you the caller? Click OK for Yes, Cancel for No.');
+          if (isCaller) {
+            startCall();
+          }
+        };
+
+        ws.onmessage = async (message) => {
+          const data = JSON.parse(message.data);
+          log('Received message: ' + data.type);
+
+          switch (data.type) {
+            case 'offer':
+              if (!isCaller) {
+                await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
+                const answer = await peerConnection.createAnswer();
+                await peerConnection.setLocalDescription(answer);
+                sendMessage({ type: 'answer', answer: answer });
+              }
+              break;
+            case 'answer':
+              if (isCaller) {
+                await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+              }
+              break;
+            case 'candidate':
+              if (data.candidate) {
+                try {
+                  await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+                } catch (e) {
+                  console.error('Error adding received ice candidate', e);
+                }
+              }
+              break;
+            case 'bye':
+              endCall();
+              break;
+          }
+        };
+
+        ws.onclose = () => {
+          log('Disconnected from signaling server');
+          endCall();
+        };
+
+        ws.onerror = (err) => {
+          console.error('WebSocket error:', err);
+          alert('Signaling server connection error.');
+          endCall();
+        };
+      }
+
+      function sendMessage(message) {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify(message));
+        }
+      }
+
+      async function startCall() {
+        startCallBtn.disabled = true;
+        hangupCallBtn.disabled = false;
+
+        if (!localStream) {
+          await startLocalStream();
+        }
+        createPeerConnection();
+
+        if (isCaller) {
+          const offer = await peerConnection.createOffer();
+          await peerConnection.setLocalDescription(offer);
+          sendMessage({ type: 'offer', offer: offer });
+        }
+      }
+
+      function endCall() {
+        startCallBtn.disabled = false;
+        hangupCallBtn.disabled = true;
+
+        if (peerConnection) {
+          peerConnection.close();
+          peerConnection = null;
+        }
+        if (remoteVideo.srcObject) {
+          remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+          remoteVideo.srcObject = null;
+        }
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          sendMessage({ type: 'bye' });
+          ws.close();
+          ws = null;
+        }
+        log('Call ended');
+      }
+
+      startCallBtn.addEventListener('click', () => {
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+          connectWebSocket();
+        } else {
+          startCall();
+        }
+      });
+
+      hangupCallBtn.addEventListener('click', () => {
+        endCall();
+        window.location = "dashboard.html"
+      });
+    })();
+  </script>
+</body>
+</html>

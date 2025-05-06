@@ -1,0 +1,202 @@
+<html class="scroll-smooth" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   HealthMate | Contact Us
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-30">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <a class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" href="dashboard.html">
+     <img alt="logo" class="w-10 h-10 object-contain" height="40" src="assets/logo.png" width="40"/>
+     <span class="text-2xl font-semibold text-blue-600 select-none">
+      HealthMate
+     </span>
+    </a>
+    <nav aria-label="Primary navigation" class="hidden md:flex space-x-6 font-medium text-gray-700">
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="dashboard.html">
+      Dashboard
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="about.html">
+      About Us
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="pharmacy.html">
+      Pharmacy
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="appointments.html">
+      Appointments
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="emergency.html">
+      Emergency
+     </a>
+     <a class="hover:text-blue-600 focus:outline-none focus:text-blue-600" href="ai-chatbot.html">
+      AI Chat
+     </a>
+    </nav>
+    <div class="hidden md:block">
+     <a class="text-gray-700 hover:text-blue-600 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-3 py-1" href="dashboard.html">
+      Logout
+     </a>
+    </div>
+    <!-- Mobile menu button -->
+    <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle menu" class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" id="mobileMenuBtn">
+     <i class="fas fa-bars fa-lg"></i>
+    </button>
+   </div>
+   <!-- Mobile menu -->
+   <nav class="md:hidden hidden bg-white border-t border-gray-200" id="mobileMenu">
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="dashboard.html">
+     Dashboard
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="about.html">
+     About Us
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="pharmacy.html">
+     Pharmacy
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="appointments.html">
+     Appointments
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="emergency.html">
+     Emergency
+    </a>
+    <a class="block px-4 py-3 hover:bg-blue-50 focus:bg-blue-50 focus:outline-none" href="ai-chatbot.html">
+     AI Chat
+    </a>
+    <a class="block px-4 py-3 text-gray-700 hover:text-blue-600 font-semibold border-t border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" href="dashboard.html">
+     Logout
+    </a>
+   </nav>
+  </header>
+  <!-- Main Content -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+   <h1 class="text-4xl font-bold text-blue-700 mb-8 select-none">
+    Contact Us
+   </h1>
+   <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <form class="bg-white rounded-lg shadow-md p-8" action="#" method="POST" novalidate>
+     <div class="mb-6">
+      <label for="name" class="block text-gray-700 font-semibold mb-2">
+       Name
+      </label>
+      <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your full name"/>
+     </div>
+     <div class="mb-6">
+      <label for="email" class="block text-gray-700 font-semibold mb-2">
+       Email
+      </label>
+      <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="you@example.com"/>
+     </div>
+     <div class="mb-6">
+      <label for="subject" class="block text-gray-700 font-semibold mb-2">
+       Subject
+      </label>
+      <input type="text" id="subject" name="subject" required class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Subject of your message"/>
+     </div>
+     <div class="mb-6">
+      <label for="message" class="block text-gray-700 font-semibold mb-2">
+       Message
+      </label>
+      <textarea id="message" name="message" rows="5" required class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Write your message here..."></textarea>
+     </div>
+     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded focus:outline-none focus:ring-4 focus:ring-blue-400">
+      Send Message
+     </button>
+    </form>
+    <div class="bg-white rounded-lg shadow-md p-8 flex flex-col justify-center">
+     <h2 class="text-2xl font-semibold text-blue-700 mb-6 select-none">
+      Get in Touch
+     </h2>
+     <div class="space-y-6 text-gray-700">
+      <div class="flex items-center space-x-4">
+       <i class="fas fa-map-marker-alt fa-lg text-blue-600"></i>
+       <p>
+        123 HealthMate Street, Wellness City, India
+       </p>
+      </div>
+      <div class="flex items-center space-x-4">
+       <i class="fas fa-phone fa-lg text-blue-600"></i>
+       <p>
+        +91 12345 67890
+       </p>
+      </div>
+      <div class="flex items-center space-x-4">
+       <i class="fas fa-envelope fa-lg text-blue-600"></i>
+       <p>
+        support@healthmate.com
+       </p>
+      </div>
+      <div class="flex items-center space-x-4">
+       <i class="fas fa-clock fa-lg text-blue-600"></i>
+       <p>
+        Mon - Fri: 9:00 AM - 6:00 PM
+       </p>
+      </div>
+     </div>
+     <div class="mt-8">
+      <h3 class="text-xl font-semibold text-blue-700 mb-4 select-none">
+       Follow Us
+      </h3>
+      <div class="flex space-x-6 text-blue-600">
+       <a href="https://facebook.com/healthmate" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+        <i class="fab fa-facebook fa-2x"></i>
+       </a>
+       <a href="https://twitter.com/healthmate" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+        <i class="fab fa-twitter fa-2x"></i>
+       </a>
+       <a href="https://instagram.com/healthmate" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+        <i class="fab fa-instagram fa-2x"></i>
+       </a>
+       <a href="https://linkedin.com/company/healthmate" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded">
+        <i class="fab fa-linkedin fa-2x"></i>
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Floating AI Chat Button -->
+  <a aria-label="Chat with AI expert" class="ai-btn fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg flex items-center space-x-2 px-4 py-3 z-50 focus:outline-none focus:ring-4 focus:ring-blue-400" href="ai-chatbot.html">
+   <img alt="AI Icon" class="w-6 h-6" height="24" src="assets/ai-removebg-preview.png" width="24"/>
+   <span class="hidden sm:inline">
+    Chat with AI
+   </span>
+  </a>
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 mt-auto py-4">
+   <p class="text-center text-gray-600 text-sm select-none">
+    © 2025 HealthMate. All rights reserved. | Designed with
+    <span aria-label="love" role="img">
+     ❤️
+    </span>
+    for your health.
+   </p>
+  </footer>
+  <script>
+   (function() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuBtn.addEventListener('click', () => {
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+        if (expanded) {
+          mobileMenu.classList.add('hidden');
+        } else {
+          mobileMenu.classList.remove('hidden');
+        }
+      });
+    })();
+  </script>
+ </body>
+</html>

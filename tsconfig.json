@@ -1,0 +1,17 @@
+{
+  "name": "webrtc-app",
+  "version": "1.0.0",
+  "description": "WebRTC Video Call App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
